@@ -1,3 +1,3 @@
-[![CircleCI](https://circleci.com/gh/beirtipol/quickfixj-additions.svg?style=svg)](https://circleci.com/gh/beirtipol/quickfixj-additions)
+[![CircleCI](https://circleci.com/gh/beirtipol/jfixtools.svg?style=svg)](https://circleci.com/gh/beirtipol/jfixtools)
 
-# quickfixj-additions
+# JFIXTools
