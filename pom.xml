@@ -24,6 +24,7 @@
     <modules>
         <module>jfixtools-cucumber</module>
         <module>jfixtools-logging</module>
+        <module>jfixtools-ui</module>
     </modules>
     <groupId>com.beirtipol</groupId>
     <artifactId>jfixtools</artifactId>

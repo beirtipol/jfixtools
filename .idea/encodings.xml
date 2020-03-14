@@ -5,5 +5,7 @@
     <file url="file://$PROJECT_DIR$/jfixtools-cucumber/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jfixtools-logging/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jfixtools-logging/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jfixtools-ui/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jfixtools-ui/src/main/resources" charset="UTF-8" />
   </component>
 </project>
