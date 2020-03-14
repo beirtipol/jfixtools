@@ -17,7 +17,6 @@
 
 package com.beirtipol.jfixtools.logging.jpa;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -32,7 +31,7 @@ import javax.persistence.Table;
 @SuperBuilder
 @Table(name = "EVENT_LOG")
 @Entity
-@Inheritance(strategy =  InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class FIXEventLogEntry extends FIXLogEntry {
 
 }

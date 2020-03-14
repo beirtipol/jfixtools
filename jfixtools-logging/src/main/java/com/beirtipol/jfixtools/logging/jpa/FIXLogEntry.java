@@ -26,7 +26,6 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -35,16 +34,16 @@ import java.util.Date;
 @Data
 @MappedSuperclass
 public class FIXLogEntry {
-	@Id
-	private long	id;
-	private LocalDateTime time;
-	private String	beginstring;
-	private String	sendercompid;
-	private String	sendersubid;
-	private String	senderlocid;
-	private String	targetcompid;
-	private String	targetsubid;
-	private String	targetlocid;
-	private String	session_qualifier;
-	private String	text;
+    @Id
+    private long id;
+    private LocalDateTime time;
+    private String beginstring;
+    private String sendercompid;
+    private String sendersubid;
+    private String senderlocid;
+    private String targetcompid;
+    private String targetsubid;
+    private String targetlocid;
+    private String session_qualifier;
+    private String text;
 }
