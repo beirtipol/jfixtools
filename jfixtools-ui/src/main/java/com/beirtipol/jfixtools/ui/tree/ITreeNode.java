@@ -24,5 +24,5 @@ public interface ITreeNode<T> {
 
     boolean hasChildren();
 
-    T getParent();
+    ITreeNode<?> getParent();
 }

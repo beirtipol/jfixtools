@@ -43,8 +43,8 @@ import java.util.Map;
 
 @Slf4j
 public class FIXMessageStepDefinitions {
-    private Map<String, Message> messages = new HashMap<>();
-    private Map<String, Group> groups = new HashMap<>();
+    private Map<String, Message>          messages   = new HashMap<>();
+    private Map<String, Group>            groups     = new HashMap<>();
     private Map<String, SessionConnector> connectors = new HashMap<>();
 
     private SessionSettings createSessionSettings(DataTable table) throws IOException, ConfigError {
@@ -84,7 +84,7 @@ public class FIXMessageStepDefinitions {
     private void createSessionConnector(String sessionType, SessionSettings settings) throws ConfigError {
         MessageFactory messageFactory = new DefaultMessageFactory();
         MessageStoreFactory messageStoreFactory = new MemoryStoreFactory();
-        LogFactory logFactory = new SLF4JLogFactory(settings);
+        SLF4JLogFactory logFactory = new SLF4JLogFactory(settings);
         Application application = new SimpleFIXApp();
         SessionConnector connector = null;
         switch (sessionType) {

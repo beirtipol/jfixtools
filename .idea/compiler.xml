@@ -8,8 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jfixtools-cucumber" />
         <module name="jfixtools-ui" />
+        <module name="jfixtools-repository" />
+        <module name="jfixtools-ui-vaadin" />
         <module name="jfixtools-logging" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jfixtools-webserver" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -25,6 +25,8 @@
         <module>jfixtools-cucumber</module>
         <module>jfixtools-logging</module>
         <module>jfixtools-ui</module>
+        <module>jfixtools-ui-vaadin</module>
+        <module>jfixtools-repository</module>
     </modules>
     <groupId>com.beirtipol</groupId>
     <artifactId>jfixtools</artifactId>
@@ -67,6 +69,7 @@
         <quickfixj.version>2.1.1</quickfixj.version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <surefire.version>3.0.0-M3</surefire.version>
+        <vaadin.version>13.0.12</vaadin.version>
     </properties>
 
     <scm>
@@ -254,6 +257,18 @@
                 <artifactId>h2</artifactId>
                 <scope>runtime</scope>
                 <version>1.4.199</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>7.4.0.jre11</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

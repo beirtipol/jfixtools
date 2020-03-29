@@ -31,7 +31,21 @@
     <dependencies>
         <dependency>
             <groupId>org.quickfixj</groupId>
-            <artifactId>quickfixj-all</artifactId>
+            <artifactId>quickfixj-all
+            </artifactId>
+            <!-- We don't need Saxon as it is only used by the codegenerator in quickfixj -->
+            <exclusions>
+                <exclusion>
+                    <artifactId>Saxon-HE</artifactId>
+                    <groupId>net.sf.saxon</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jfixtools-repository</artifactId>
+            <version>${project.version}
+            </version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
