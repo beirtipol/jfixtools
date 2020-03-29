@@ -3,7 +3,7 @@
 # JFIXTools
 
 This set of tools builds on top of 
-- QuickFixJ: https://www.quickfixj.org/
+- QuickFixJ: https://github.com/quickfix-j/quickfixj
 - FIX Repository: https://www.fixtrading.org/standards/fix-repository/ 
 
 It provides some sample code for Cucumber-based testing of FIX messages and sessions. It also provides 
