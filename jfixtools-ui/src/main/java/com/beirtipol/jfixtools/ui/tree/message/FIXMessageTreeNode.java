@@ -37,7 +37,7 @@ public class FIXMessageTreeNode extends FIXTreeNode {
     public FIXMessageTreeNode(NamedDataDictionary dictionary, Message message, FIXRepositoryHelper helper) {
         super(null, dictionary);
         this.message = message;
-        this.helper = helper;
+        this.helper  = helper;
         try {
             messageType = message.getHeader().getString(MsgType.FIELD);
         } catch (FieldNotFound e) {

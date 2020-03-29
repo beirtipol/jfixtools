@@ -27,7 +27,7 @@ public abstract class FIXTreeNode implements ITreeNode<FIXTreeNode> {
     protected NamedDataDictionary dictionary;
 
     public FIXTreeNode(FIXTreeNode parent, NamedDataDictionary dictionary) {
-        this.parent = parent;
+        this.parent     = parent;
         this.dictionary = dictionary;
     }
 

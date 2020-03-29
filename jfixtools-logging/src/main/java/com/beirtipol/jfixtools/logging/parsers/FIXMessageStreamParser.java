@@ -17,8 +17,8 @@
 
 package com.beirtipol.jfixtools.logging.parsers;
 
-import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
+import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import lombok.*;
 

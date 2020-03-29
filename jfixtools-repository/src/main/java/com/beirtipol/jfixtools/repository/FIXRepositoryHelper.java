@@ -59,7 +59,7 @@ public class FIXRepositoryHelper {
             int nanos = 1000000;
             log.info("Loaded Repository XML in " + (System.nanoTime() - start) / nanos + "ms");
             log.info("Loading Phrases XML");
-            start = System.nanoTime();
+            start   = System.nanoTime();
             phrases = loadXML(config.getPhrasesFilePath());
             log.info("Loaded Phrases XML in " + (System.nanoTime() - start) / nanos + "ms");
             log.info("Loaded JAXB Objects");

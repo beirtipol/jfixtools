@@ -35,11 +35,11 @@ public class FieldValueTreeNode implements IDictionaryTreeNode {
     private String                    synopsis;
 
     public FieldValueTreeNode(IDictionaryTreeNode parent, String enumValue, String description, Optional<Field> fieldInfo, FIXRepositoryHelper helper) {
-        this.parent = parent;
-        this.enumValue = enumValue;
+        this.parent      = parent;
+        this.enumValue   = enumValue;
         this.description = description;
-        this.fieldInfo = fieldInfo;
-        this.helper = helper;
+        this.fieldInfo   = fieldInfo;
+        this.helper      = helper;
     }
 
     public String getEnumValue() {

@@ -40,12 +40,12 @@ public class FieldTreeNode implements IDictionaryTreeNode {
     private String                    synopsis;
 
     public FieldTreeNode(IDictionaryTreeNode parent, int field, NamedDataDictionary dict, String messageType, FIXRepositoryHelper helper) {
-        this.parent = parent;
-        this.field = field;
-        this.dict = dict;
+        this.parent      = parent;
+        this.field       = field;
+        this.dict        = dict;
         this.messageType = messageType;
-        this.helper = helper;
-        this.fieldInfo = helper.loadFieldInfo(field);
+        this.helper      = helper;
+        this.fieldInfo   = helper.loadFieldInfo(field);
     }
 
     @Override

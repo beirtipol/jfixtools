@@ -31,21 +31,21 @@ import java.util.stream.StreamSupport;
 
 @Slf4j
 public class FieldMapTreeNode extends FIXTreeNode {
-    private String messageType;
-    private FieldMap fieldMap;
+    private String              messageType;
+    private FieldMap            fieldMap;
     private FIXRepositoryHelper helper;
     private String              tag;
     private String              name;
     private String              description;
     private List<FIXTreeNode>   children;
 
-    public FieldMapTreeNode(FIXTreeNode parent, NamedDataDictionary dictionary,String messageType, FieldMap fieldMap, FIXRepositoryHelper helper, String tag, String name, String description) {
+    public FieldMapTreeNode(FIXTreeNode parent, NamedDataDictionary dictionary, String messageType, FieldMap fieldMap, FIXRepositoryHelper helper, String tag, String name, String description) {
         super(parent, dictionary);
         this.messageType = messageType;
-        this.fieldMap = fieldMap;
-        this.helper = helper;
-        this.tag = tag;
-        this.name = name;
+        this.fieldMap    = fieldMap;
+        this.helper      = helper;
+        this.tag         = tag;
+        this.name        = name;
         this.description = description;
     }
 
@@ -84,14 +84,14 @@ public class FieldMapTreeNode extends FIXTreeNode {
                         for (int count = 1; count <= integerField.getValue(); count++) {
                             try {
                                 Group group = fieldMap.getGroup(count, fieldNum);
-                                return new FieldMapTreeNode(this, dictionary,messageType, group, helper, "" + fieldNum, fieldName, fieldDescription);
+                                return new FieldMapTreeNode(this, dictionary, messageType, group, helper, "" + fieldNum, fieldName, fieldDescription);
                             } catch (FieldNotFound e) {
                                 log.error("Could not get expected group", e);
                             }
                         }
                     }
                 } else {
-                    return new StringFieldTreeNode(this, dictionary, helper,messageType, fieldNum, fieldName, field.getValue(), fieldDescription);
+                    return new StringFieldTreeNode(this, dictionary, helper, messageType, fieldNum, fieldName, field.getValue(), fieldDescription);
                 }
                 return null;
             }).filter(e -> e != null).collect(Collectors.toList());

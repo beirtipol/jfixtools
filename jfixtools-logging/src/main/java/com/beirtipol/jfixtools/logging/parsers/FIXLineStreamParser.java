@@ -29,7 +29,6 @@ import java.util.stream.Stream;
  */
 public class FIXLineStreamParser {
     /**
-     *
      * @param lines contains potentially multiline text messages. The beginning line of each message MUST begin with "8="
      * @return a reduced stream of one message per line
      */

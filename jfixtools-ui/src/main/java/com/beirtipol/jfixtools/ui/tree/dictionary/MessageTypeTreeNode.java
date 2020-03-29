@@ -41,10 +41,10 @@ public class MessageTypeTreeNode implements IDictionaryTreeNode {
     private String                    synopsis;
 
     public MessageTypeTreeNode(ITreeNode<?> parent, String messageType, NamedDataDictionary dict, FIXRepositoryHelper helper) {
-        this.parent = parent;
+        this.parent      = parent;
         this.messageType = messageType;
-        this.dict = dict;
-        this.helper = helper;
+        this.dict        = dict;
+        this.helper      = helper;
         this.messageInfo = helper.loadMessageInfo(messageType);
     }
 

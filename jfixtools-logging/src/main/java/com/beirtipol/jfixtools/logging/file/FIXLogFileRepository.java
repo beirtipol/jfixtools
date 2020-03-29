@@ -18,8 +18,8 @@
 package com.beirtipol.jfixtools.logging.file;
 
 import com.beirtipol.jfixtools.logging.FIXLogRepository;
-import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
+import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import com.beirtipol.jfixtools.logging.parsers.FIXMessageStreamParser;
 import lombok.*;

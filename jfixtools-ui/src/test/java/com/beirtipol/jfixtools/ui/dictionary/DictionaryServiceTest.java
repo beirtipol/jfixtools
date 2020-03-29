@@ -17,18 +17,11 @@
 
 package com.beirtipol.jfixtools.ui.dictionary;
 
-import com.beirtipol.jfixtools.repository.FIXRepositoryConfig;
-import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
-import com.beirtipol.jfixtools.ui.field.EnumData;
-import com.beirtipol.jfixtools.ui.field.FieldData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import quickfix.ConfigError;
-import quickfix.field.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

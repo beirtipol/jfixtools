@@ -16,8 +16,6 @@
  */
 package com.beirtipol.jfixtools.logging.file;
 
-import com.beirtipol.jfixtools.logging.FIXLogRepository;
-import com.beirtipol.jfixtools.logging.FIXLogService;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

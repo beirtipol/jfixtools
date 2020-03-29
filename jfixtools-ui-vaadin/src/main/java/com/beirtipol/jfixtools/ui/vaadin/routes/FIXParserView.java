@@ -18,7 +18,6 @@
 package com.beirtipol.jfixtools.ui.vaadin.routes;
 
 import com.beirtipol.jfixtools.logging.FIXLogService;
-import com.beirtipol.jfixtools.logging.jpa.FIXLogJPAService;
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.DictionaryService;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;

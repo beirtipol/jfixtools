@@ -2,3 +2,6 @@
 /jfixtools-cucumber/target/
 /jfixtools-logging/target/
 /jfixtools-ui/target/
+/jfixtools-repository/target/generated-sources/
+/jfixtools-repository/target/
+/jfixtools-ui-vaadin/target/classes/

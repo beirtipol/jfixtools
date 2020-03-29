@@ -38,7 +38,7 @@ public class FIXDataViewer extends VerticalLayout {
         if (field instanceof FieldData) {
             List<FIXData> data = new ArrayList<>();
             data.addAll(((FieldData) field).getEnums());
-            if(data.size()>0){
+            if (data.size() > 0) {
                 add(new Label("Possible Values:"));
                 Grid<FIXData> enumGrid = createGrid();
                 enumGrid.setItems(data);

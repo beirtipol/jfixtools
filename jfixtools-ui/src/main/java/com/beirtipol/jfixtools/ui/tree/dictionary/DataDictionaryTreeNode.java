@@ -32,7 +32,7 @@ public class DataDictionaryTreeNode implements IDictionaryTreeNode {
     private FIXRepositoryHelper       helper;
 
     public DataDictionaryTreeNode(NamedDataDictionary dict, FIXRepositoryHelper helper) {
-        this.dict = dict;
+        this.dict   = dict;
         this.helper = helper;
     }
 
