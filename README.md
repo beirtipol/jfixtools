@@ -19,7 +19,12 @@ This project allows people to input their own Dictionaries and FIX Message sourc
 can host the application internally and not worry about sharing live trading information with
 external websites.
 
-## Sample Application
+## Sample Web Application
+
+The sample application is written using Vaadin, currently without any special stylesheets or fanciness.
+This serves the purpose of providing a usable application, which is easy to code, and also easy to read for
+a Java Developer who may not be familiar with Angular/Bootstrap etc. If anyone would care to 
+contribute a slick JavaScript-based UI, I would love to chat!
 
 ### Screenshots
 #### Repository search page
@@ -39,15 +44,6 @@ external websites.
 The application.properties present in jfixtools-ui-vaadin demonstrates how to set up a source from both File and Database logs. 
 It is important to note that the 'sessionID' part of the dictionary.mappings and the 'logSources' must contain the same fields
 or else the dictionary will not be loaded when attempting to parse the text of a fix message.
-
-
-
-## Configuration
-### Files
-A log file can contain messages for 1 or more sessions. In addition, it could contain event as well as message logs.
-
-### DB
-The standard QuickFixJ database table contain all messages in one table, all events in another.
 
 ## Performance Testing
 Many thanks go to YourKit for providing me with an Open-Source license which has allowed me to nail
