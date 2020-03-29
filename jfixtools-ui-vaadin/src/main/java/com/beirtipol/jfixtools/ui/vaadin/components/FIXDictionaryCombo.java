@@ -35,6 +35,7 @@ public class FIXDictionaryCombo extends ComboBox<NamedDataDictionary> {
         dictionaries = dictionaryService.loadAll().collect(Collectors.toList());
         setItems(dictionaries);
         setItemLabelGenerator(item -> item.getName());
+        setValue(dictionaries.get(0));
     }
 
     public void choose(String dictionaryName) {

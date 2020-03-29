@@ -80,6 +80,7 @@ public class XMLTreeNode extends FIXTreeNode {
                 log.error("Error transforming node to string", e);
             }
             xmlString = sw.toString();
+            xmlString = xmlString.replaceAll("\n\\s+\n","\n");
         }
         return xmlString;
     }

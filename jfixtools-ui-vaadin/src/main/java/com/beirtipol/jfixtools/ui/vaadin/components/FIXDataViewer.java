@@ -19,9 +19,12 @@ package com.beirtipol.jfixtools.ui.vaadin.components;
 
 import com.beirtipol.jfixtools.ui.field.FIXData;
 import com.beirtipol.jfixtools.ui.field.FieldData;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.data.renderer.TextRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +33,8 @@ public class FIXDataViewer extends VerticalLayout {
     public FIXDataViewer(FIXData field) {
         Grid<FIXData> fieldGrid = createGrid();
         fieldGrid.setItems(field);
-        fieldGrid.setHeight("200px");
-        setHeight("200px");
+        fieldGrid.setMinHeight("200px");
+        setMinHeight("200px");
         add(fieldGrid);
 
 
@@ -42,8 +45,8 @@ public class FIXDataViewer extends VerticalLayout {
                 add(new Label("Possible Values:"));
                 Grid<FIXData> enumGrid = createGrid();
                 enumGrid.setItems(data);
-                enumGrid.setHeight("400px");
-                setHeight("400px");
+                enumGrid.setMinHeight("400px");
+                setMinHeight("400px");
                 add(enumGrid);
             }
         }
@@ -61,6 +64,21 @@ public class FIXDataViewer extends VerticalLayout {
         fieldGrid.addColumn(FIXData::getAdded).setHeader("Added").setWidth("100px").setResizable(true);
         fieldGrid.addColumn(FIXData::getDeprecated).setHeader("Deprecated").setWidth("100px").setResizable(true);
         fieldGrid.setSizeFull();
+
+        fieldGrid.setItemDetailsRenderer(new TextRenderer<>() {
+            @Override
+            public Component createComponent(FIXData fixData) {
+                TextArea result = new TextArea();
+                StringBuilder sb = new StringBuilder();
+                sb.append(fixData.getSynopsis());
+                sb.append("\n\n");
+                sb.append(fixData.getElaboration());
+                result.setValue(sb.toString());
+                result.setSizeFull();
+                result.setReadOnly(true);
+                return result;
+            }
+        });
 
         return fieldGrid;
     }
