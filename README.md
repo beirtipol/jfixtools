@@ -9,8 +9,19 @@ sample fix logs.
 ## Sample Application
 
 ### Screenshots
+#### Repository search page
 ![Repository Search With Embedded Info](/docs/images/RepositorySearchWithEmbeddedInfo.png)
 
+#### Message Parsing
+![Message Parsing showing Message Type info](/docs/images/ParserWithMessageType.png)
+
+#### Message Parsing with Embedded XML
+![Message Parsing showing embedded XML](/docs/images/ParserWithXML.png)
+
+#### Log viewer (Database and File) with embedded Message view
+![Logs with embedded Message View](/docs/images/LogsWithEmbeddedMessageInfo.png)
+
+### How to configure the sample application
 
 The application.properties present in jfixtools-ui-vaadin demonstrates how to set up a source from both File and Database logs. 
 It is important to note that the 'sessionID' part of the dictionary.mappings and the 'logSources' must contain the same fields
