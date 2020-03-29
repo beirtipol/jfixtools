@@ -2,9 +2,22 @@
 
 # JFIXTools
 
+This set of tools builds on top of 
+- QuickFixJ: https://www.quickfixj.org/
+- FIX Repository: https://www.fixtrading.org/standards/fix-repository/ 
+
+It provides some sample code for Cucumber-based testing of FIX messages and sessions. It also provides 
+Spring Boot 2 enabled services for loading the FIX Repository, FIX Logs (either from File or Database)
+and a FIX Message parser. 
+
 Like most projects, documentation is a work in progress. Here are some screenshots of the included 
 VaadinApplication. You can simply clone and run to view the embedded Database and files with 
 sample fix logs.
+
+While a hosted version of this project would be useful, there are already many standard FIX parsers out there.
+This project allows people to input their own Dictionaries and FIX Message sources so that they
+can host the application internally and not worry about sharing live trading information with
+external websites.
 
 ## Sample Application
 
@@ -35,3 +48,20 @@ A log file can contain messages for 1 or more sessions. In addition, it could co
 
 ### DB
 The standard QuickFixJ database table contain all messages in one table, all events in another.
+
+## Performance Testing
+Many thanks go to YourKit for providing me with an Open-Source license which has allowed me to nail
+down some nasty performance issues with the QuickFixJ code-generator as well as fixing my own
+code!
+
+![Yourkit Logo](https://www.yourkit.com/images/yklogo.png)
+
+YourKit supports open source projects with innovative and intelligent tools for monitoring and profiling Java and .NET applications.
+YourKit is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/), [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/), and [YourKit YouMonitor](https://www.yourkit.com/youmonitor/)
+
+## Licensing?
+I'm not precious. It's released under GPL3. Do what you like with it. Copy it, rip it apart, extend it, make it better. I would ask that you let me know if you've done any of that, but you don't have to.
+
+Cheers,
+
+Beirti
