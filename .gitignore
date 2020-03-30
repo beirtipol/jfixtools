@@ -5,3 +5,5 @@
 /jfixtools-repository/target/generated-sources/
 /jfixtools-repository/target/
 /jfixtools-ui-vaadin/target/classes/
+/jfixtools-reporting/target/
+/jfixtools-ui-vaadin/target/maven-status/maven-compiler-plugin/
