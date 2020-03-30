@@ -9,6 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/jfixtools-ui-vaadin-docker/pom.xml" />
         <option value="$PROJECT_DIR$/jfixtools-webserver/pom.xml" />
       </set>
     </option>

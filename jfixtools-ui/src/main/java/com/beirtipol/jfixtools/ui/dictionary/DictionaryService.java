@@ -25,7 +25,9 @@ import quickfix.ConfigError;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
@@ -41,8 +43,9 @@ public class DictionaryService {
         Stream<NamedDataDictionary> result = Stream.empty();
         for (String path : config.getPaths()) {
             try {
+                Path dictionaryPath = Paths.get(getClass().getClassLoader().getResource(path).toURI());
                 result = Stream.concat(result,
-                        Files.list(Paths.get(getClass().getClassLoader().getResource(path).toURI()))
+                        Files.list(dictionaryPath)
                                 .filter(f -> f.toString().endsWith(".xml"))
                                 .map(f -> {
                                     try (FileInputStream fis = new FileInputStream(f.toFile())) {
@@ -53,7 +56,7 @@ public class DictionaryService {
                                     return null;
                                 }).filter(dd -> dd != null));
 
-            } catch (IOException | URISyntaxException e) {
+            } catch (IOException | URISyntaxException | FileSystemNotFoundException e) {
                 log.error("Could not access dictionaries in " + path, e);
             }
         }

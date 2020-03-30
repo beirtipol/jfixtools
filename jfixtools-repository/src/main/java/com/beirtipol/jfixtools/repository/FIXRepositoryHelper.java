@@ -29,6 +29,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -71,9 +73,9 @@ public class FIXRepositoryHelper {
     @SuppressWarnings("unchecked")
     private <T> T loadXML(String filename) throws JAXBException {
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        String path = FIXRepositoryHelper.class.getClassLoader().getResource(filename).getPath();
-        log.info("Loading from " + path);
-        return (T) unmarshaller.unmarshal(new File(path));
+        log.info("Loading from " + filename);
+        InputStream resource = FIXRepositoryHelper.class.getClassLoader().getResourceAsStream(filename);
+        return (T) unmarshaller.unmarshal(resource);
     }
 
     public FixRepository getRepository() {
