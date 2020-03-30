@@ -7,13 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jfixtools-cucumber" />
-        <module name="jfixtools-ui" />
         <module name="jfixtools-repository" />
-        <module name="jfixtools-ui-vaadin" />
+        <module name="jfixtools-ui" />
         <module name="jfixtools-logging" />
+        <module name="jfixtools-ui-vaadin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="jfixtools-ui-vaadin-docker" target="11" />
       <module name="jfixtools-webserver" target="11" />
     </bytecodeTargetLevel>
   </component>
