@@ -28,6 +28,10 @@
 
     <artifactId>jfixtools-repository</artifactId>
 
+    <properties>
+        <jaxb.package>fixrepository</jaxb.package>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -60,10 +64,19 @@
                                 <schemaInclude>FixPhrases.xsd</schemaInclude>
                             </schemaIncludes>
                             <generateDirectory>${project.build.directory}/generated-sources</generateDirectory>
-                            <generatePackage>fixrepository</generatePackage>
+                            <generatePackage>${jaxb.package}</generatePackage>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>${jaxb.package}/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

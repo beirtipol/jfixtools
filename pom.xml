@@ -266,6 +266,12 @@
                 <version>${quickfixj.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.quickfixj</groupId>
+                <artifactId>quickfixj-messages-all</artifactId>
+                <version>${quickfixj.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
@@ -281,6 +287,11 @@
             <dependency>
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
             <dependency>

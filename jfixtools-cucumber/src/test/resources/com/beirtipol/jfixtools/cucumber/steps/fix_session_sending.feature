@@ -35,7 +35,7 @@ Feature: FIX Session Creation
       | SESSION | SenderCompID                    | Initiator                                |
       | SESSION | TargetCompID                    | Acceptor                                 |
     Then we wait 1500 millis for the "acceptor" to be logged on
-    And we sleep for 10 seconds
+    And we sleep for 2 seconds
     Then the "acceptor" logs off
     And the "initiator" logs off
 
