@@ -21,8 +21,8 @@ jobs:
       - checkout
 
       # run tests!
-      - run: mvn integration-test validate -Dmaven.javadoc.skip=true
+      - run: mvn test -Dmaven.javadoc.skip=true
 
       # Surefire reports are stored in the parent project to keep CircleCI happy
-      - store_test_results:
-          path: target/surefire-reports
+      - store_artifacts:
+          path: jfixtools-reporting/target/site/jacoco-aggregate
