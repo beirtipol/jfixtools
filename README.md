@@ -30,16 +30,16 @@ contribute a slick JavaScript-based UI, I would love to chat!
 
 ### Screenshots
 #### Repository search page
-![Repository Search With Embedded Info](/docs/images/RepositorySearchWithEmbeddedInfo.png)
+![Repository Search With Embedded Info](docs/images/RepositorySearchWithEmbeddedInfo.png)
 
 #### Message Parsing
-![Message Parsing showing Message Type info](/docs/images/ParserWithMessageType.png)
+![Message Parsing showing Message Type info](docs/images/ParserWithMessageType.png)
 
 #### Message Parsing with Embedded XML
-![Message Parsing showing embedded XML](/docs/images/ParserWithXML.png)
+![Message Parsing showing embedded XML](docs/images/ParserWithXML.png)
 
 #### Log viewer (Database and File) with embedded Message view
-![Logs with embedded Message View](/docs/images/LogsWithEmbeddedMessageInfo.png)
+![Logs with embedded Message View](docs/images/LogsWithEmbeddedMessageInfo.png)
 
 ### How to configure the sample application
 
