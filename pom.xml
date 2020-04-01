@@ -53,6 +53,12 @@
             <organization>Private</organization>
             <organizationUrl>https://github.com/beirtipol</organizationUrl>
         </developer>
+        <developer>
+            <name>Maciej Czubak</name>
+            <email>mc@maciej.tech</email>
+            <organization>Private</organization>
+            <organizationUrl>https://github.com/immaciek</organizationUrl>
+        </developer>
     </developers>
 
     <properties>
