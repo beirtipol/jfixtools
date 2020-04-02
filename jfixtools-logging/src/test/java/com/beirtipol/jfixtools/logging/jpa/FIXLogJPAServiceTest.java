@@ -16,62 +16,51 @@
  */
 package com.beirtipol.jfixtools.logging.jpa;
 
+import com.beirtipol.jfixtools.logging.FIXLogRepository;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
+import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXMessagesLogEntry;
+import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Sql({"/com/beirtipol/jfixtools/logging/jpa/data.sql"})
 @ExtendWith({SpringExtension.class})
 @SpringBootTest
-public class FIXMessagesLogJPARepositoryTest {
+public class FIXLogJPAServiceTest {
     @Autowired
-    private FIXMessageLogJPARepository repository;
+    private FIXLogJPAService service;
+
 
     @Test
-    public void saveAndRetrieveByID() {
-        FIXMessagesLogEntry message = FIXMessagesLogEntry.builder()
-                .id(1l)
-                .beginstring("FIX4.4")
-                .sendercompid("Sender")
-                .targetcompid("Target")
-                .text("Some Text")
-                .time(LocalDateTime.of(2020, 1, 1, 0, 0, 0))
+    public void loadTestDataAndRetrieveFromFilteredRepository() {
+        List<FIXLogRepository> repositories = service.getFIXLogJPARepositories();
+        FIXSessionID sessionID = FIXSessionID.builder()
+                .senderCompID("Acceptor")
+                .targetCompID("Initiator")
+                .beginString("FIX.4.4")
                 .build();
-        repository.save(message);
-        FIXLogEntry foundEntity = repository.findById(message.getId()).get();
-
-        assertNotNull(foundEntity);
-        assertEquals(message, foundEntity);
-    }
-
-    @Test
-    public void saveAndRetrieveByTime() {
-        FIXMessagesLogEntry.FIXMessagesLogEntryBuilder<?, ?> builder = FIXMessagesLogEntry.builder()
-                .beginstring("FIX4.4")
-                .sendercompid("Sender")
-                .targetcompid("Target")
-                .text("Some Text");
-
-        for (int hour = 0; hour < 10; hour++) {
-            builder.id(hour);
-            builder.time(LocalDateTime.of(2020, 1, 1, hour, 0, 0));
-            repository.save(builder.build());
-        }
-        List<FIXMessagesLogEntry> messages = repository.getMessagesBetween("Sender", "Target",
-                LocalDateTime.of(2020, 1, 1, 5, 30, 0),
-                LocalDateTime.of(2020, 1, 1, 6, 30, 0));
+        Optional<FIXLogRepository> messageRepo = repositories.stream()
+                .filter(f -> f.getLogEntryType() == FIXLogEntryType.MESSAGE)
+                .filter(f -> f.getSessionID().matches(sessionID))
+                .findFirst();
+        List<? extends FIXLogEntry> messages = messageRepo.get().getEntriesBetween(
+                LocalDateTime.of(2020, 4, 2, 9, 10, 52),
+                LocalDateTime.of(2020, 4, 2, 9, 10, 54));
 
         assertNotNull(messages);
-        assertThat(messages.size()).isEqualTo(1);
+        assertThat(messages.size()).isEqualTo(2);
     }
 }

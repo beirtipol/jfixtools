@@ -36,7 +36,7 @@ public class FIXLogService {
     @Autowired
     private FIXLogFileService fixLogFileService;
 
-    public List<FIXLogRepository> getFIXLogFileRepositories() {
+    public List<FIXLogRepository> getFIXLogRepositories() {
         return Stream.concat(
                 fixLogJPAService.getFIXLogJPARepositories().stream(),
                 fixLogFileService.getFIXLogFileRepositories().stream()

@@ -161,7 +161,7 @@ public class FIXLogsView extends VerticalLayout {
     }
 
     private void updateGrid(FIXSessionID sessionID) {
-        fixLogService.getFIXLogFileRepositories().stream()
+        fixLogService.getFIXLogRepositories().stream()
                 .filter(repo -> repo.getSessionID().equals(sessionID))
                 .filter(repo -> repo.getLogEntryType() == typeCombo.getValue())
                 .findFirst()
