@@ -59,6 +59,7 @@ public class FIXLogsView extends VerticalLayout {
     private final DictionaryMappingService  dictionaryMappingService;
     private final DictionaryService         dictionaryService;
     private final FIXLogService             fixLogService;
+    private MessageUtils messageUtils;
     private       FIXMessageViewer          messageViewer;
     private       FIXDictionaryCombo        dictionaryCombo;
     private final ArrayList<FIXLogEntry>    loadedEntries = new ArrayList<>();
@@ -71,10 +72,12 @@ public class FIXLogsView extends VerticalLayout {
     public FIXLogsView(DictionaryMappingService dictionaryMappingService,
                        DictionaryService dictionaryService,
                        FIXLogService fixLogService,
-                       FIXRepositoryHelper helper) {
+                       FIXRepositoryHelper helper,
+                       MessageUtils messageUtils) {
         this.dictionaryMappingService = dictionaryMappingService;
         this.dictionaryService        = dictionaryService;
         this.fixLogService            = fixLogService;
+        this.messageUtils             = messageUtils;
         setSizeFull();
 
         HorizontalLayout toolbar = new HorizontalLayout();
@@ -141,7 +144,7 @@ public class FIXLogsView extends VerticalLayout {
                             .ifPresent(name -> {
                                 dictionaryService.loadDictionary(name).ifPresent(dd -> {
                                     try {
-                                        Message message = MessageUtils.parse(dd, item.getText());
+                                        Message message = messageUtils.parse(dd, item.getText());
                                         viewer.setContent(dd, message, helper);
                                     } catch (InvalidMessage e) {
                                         log.error("Could not parse fix message, e");

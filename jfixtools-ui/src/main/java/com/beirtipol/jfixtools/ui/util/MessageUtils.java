@@ -17,11 +17,13 @@
 
 package com.beirtipol.jfixtools.ui.util;
 
+import org.springframework.stereotype.Component;
 import quickfix.DataDictionary;
 import quickfix.DefaultMessageFactory;
 import quickfix.InvalidMessage;
 import quickfix.Message;
 
+@Component
 public class MessageUtils {
     /**
      * Parse a message using the specified dictionary. This simply avoids having to specify a MessageFactory to
@@ -32,7 +34,7 @@ public class MessageUtils {
      * @return
      * @throws InvalidMessage is rethrown from the quickfixj MessageUtils
      */
-    public static Message parse(DataDictionary dict, String text) throws InvalidMessage {
+    public Message parse(DataDictionary dict, String text) throws InvalidMessage {
         return quickfix.MessageUtils.parse(new DefaultMessageFactory(), dict, text);
     }
 
@@ -43,7 +45,7 @@ public class MessageUtils {
      * @param text
      * @return
      */
-    public static String correctChecksum(String text) {
+    public String correctChecksum(String text) {
         int checksum = quickfix.MessageUtils.checksum(text);
         return text.replaceAll("10=\\d+", "10=" + checksum + "");
     }
@@ -55,7 +57,7 @@ public class MessageUtils {
      * @param text
      * @return
      */
-    public static String replacePipeWithSOH(String text) {
+    public String replacePipeWithSOH(String text) {
         return correctChecksum(text.replaceAll("\\|", ""));
     }
 }
