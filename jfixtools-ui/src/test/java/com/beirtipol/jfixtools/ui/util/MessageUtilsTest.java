@@ -23,9 +23,7 @@ import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import quickfix.Message;
 import quickfix.field.SenderCompID;
 
@@ -33,17 +31,18 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = {DictionaryConfig.class,DictionaryService.class, MessageUtils.class})
+@SpringBootTest(classes = {DictionaryConfig.class, DictionaryService.class, MessageUtils.class})
 public class MessageUtilsTest {
     @Autowired
     private MessageUtils messageUtils;
 
     @Autowired
     private DictionaryService dictionaryService;
+
     private String expectedMessageText;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         expectedMessageText = "8=FIX.4.4\u00019=72\u000135=A\u000134=5\u000149=Initiator\u000152=20200822-09:10:51.144\u000156=Acceptor\u000198=0\u0001108=30\u000110=224\u0001";
     }
 
@@ -54,13 +53,13 @@ public class MessageUtilsTest {
     }
 
     @Test
-    public void replacePipeWithSOH() throws Exception{
+    public void replacePipeWithSOH() throws Exception {
         String withPipe = "8=FIX.4.4|9=72|35=A|34=5|49=Initiator|52=20200822-09:10:51.144|56=Acceptor|98=0|108=30|10=224|";
         assertThat(messageUtils.replacePipeWithSOH(withPipe)).isEqualTo(expectedMessageText);
     }
 
     @Test
-    public void parse() throws Exception{
+    public void parse() throws Exception {
         Optional<NamedDataDictionary> dictionary = dictionaryService.loadDictionary("FIX44.xml");
         Message message = messageUtils.parse(dictionary.get(), expectedMessageText);
         assertThat(message.getHeader().getString(SenderCompID.FIELD)).isEqualTo("Initiator");
