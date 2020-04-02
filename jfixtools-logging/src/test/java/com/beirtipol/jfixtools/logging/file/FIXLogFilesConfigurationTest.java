@@ -16,7 +16,10 @@
  */
 package com.beirtipol.jfixtools.logging.file;
 
+import com.beirtipol.jfixtools.logging.FIXLogRepository;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
+import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
+import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +58,23 @@ public class FIXLogFilesConfigurationTest {
         LocalDateTime from = LocalDateTime.of(2020, 3, 21, 13, 52, 28);
         LocalDateTime to = LocalDateTime.of(2020, 3, 21, 13, 52, 29);
 
-        List<? extends FIXLogEntry> incomingMessages = logFileService.getFIXLogFileRepositories().get(0).getEntriesBetween(from, to);
+        FIXLogRepository initiatorRepo = logFileService.getFIXLogFileRepositories().get(0);
+        assertThat(initiatorRepo.getSessionID().matches(FIXSessionID.builder()
+                .senderCompID("Initiator")
+                .targetCompID("Acceptor")
+                .build()));
+        List<? extends FIXLogEntry> incomingMessages = initiatorRepo.getEntriesBetween(from, to);
+        assertThat(initiatorRepo.getLogEntryType()).isEqualTo(FIXLogEntryType.MESSAGE);
         assertThat(incomingMessages).hasSize(1);
         assertThat(incomingMessages.get(0).getSendercompid()).isEqualTo("Initiator");
 
-        List<? extends FIXLogEntry> outgoingMessages = logFileService.getFIXLogFileRepositories().get(1).getEntriesBetween(from, to);
+        FIXLogRepository acceptorRepo = logFileService.getFIXLogFileRepositories().get(1);
+        assertThat(acceptorRepo.getLogEntryType()).isEqualTo(FIXLogEntryType.MESSAGE);
+        assertThat(acceptorRepo.getSessionID().matches(FIXSessionID.builder()
+                .senderCompID("Acceptor")
+                .targetCompID("Initiator")
+                .build()));
+        List<? extends FIXLogEntry> outgoingMessages = acceptorRepo.getEntriesBetween(from, to);
         assertThat(outgoingMessages).hasSize(1);
         assertThat(outgoingMessages.get(0).getSendercompid()).isEqualTo("Acceptor");
     }

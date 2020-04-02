@@ -26,6 +26,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,13 +35,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(locations = "./application-test.properties")
 public class DictionaryMappingsTest {
     @Autowired
-    private DictionaryMappings mappings;
+    DictionaryMappingService service;
 
     @Test
     public void loadMappings() {
-        List<DictionaryMapping> dictionaryMappings = this.mappings.getMappings();
-        assertThat(dictionaryMappings).hasSize(1);
-        assertThat(dictionaryMappings.get(0).getSessionID())
-                .isEqualTo(FIXSessionID.builder().senderCompID("Initiator").targetCompID("Acceptor").build());
+        Optional<String> dictionaryName = service.dictionaryName(FIXSessionID.builder()
+                .senderCompID("Initiator")
+                .targetCompID("Acceptor")
+                .build());
+        assertThat(dictionaryName.isPresent()).isTrue();
+        assertThat(dictionaryName.get()).isEqualTo("FIX44.xml");
     }
 }
