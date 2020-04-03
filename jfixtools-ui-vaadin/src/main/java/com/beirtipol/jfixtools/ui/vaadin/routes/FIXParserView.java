@@ -59,7 +59,9 @@ public class FIXParserView extends VerticalLayout {
     private static final String MINI      = ">>";
 
     @Autowired
-    public FIXParserView(FIXRepositoryHelper repositoryHelper, DictionaryService dictionaryService) {
+    public FIXParserView(FIXRepositoryHelper repositoryHelper, 
+                         DictionaryService dictionaryService,
+                         MessageUtils messageUtils ) {
         setSizeFull();
 
         textArea = new TextArea();
@@ -74,15 +76,15 @@ public class FIXParserView extends VerticalLayout {
         toolbar.add(new Button("Parse", e -> {
             try {
                 DataDictionary dict = getSelectedDictionary();
-                Message message = MessageUtils.parse(dict, textArea.getValue());
+                Message message = messageUtils.parse(dict, textArea.getValue());
                 setMessage(message, repositoryHelper);
             } catch (ConfigError | InvalidMessage e1) {
                 Notification.show(e1.getMessage());
             }
         }));
-        toolbar.add(new Button("Replace Pipe with SOH", e -> textArea.setValue(MessageUtils.replacePipeWithSOH(textArea.getValue()))));
+        toolbar.add(new Button("Replace Pipe with SOH", e -> textArea.setValue(messageUtils.replacePipeWithSOH(textArea.getValue()))));
 
-        toolbar.add(new Button("Correct Checksum", e -> textArea.setValue(MessageUtils.correctChecksum(textArea.getValue()))));
+        toolbar.add(new Button("Correct Checksum", e -> textArea.setValue(messageUtils.correctChecksum(textArea.getValue()))));
         viewPane = new HorizontalLayout();
         viewPane.setSizeFull();
         add(viewPane);
