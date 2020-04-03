@@ -77,7 +77,7 @@
         <quickfixj.version>2.1.1</quickfixj.version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <surefire.version>3.0.0-M3</surefire.version>
-        <vaadin.version>13.0.12</vaadin.version>
+        <vaadin.version>15.0.2</vaadin.version>
     </properties>
 
     <scm>
@@ -116,6 +116,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>vaadin-maven-plugin</artifactId>
+                    <version>${vaadin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -346,6 +351,12 @@
                 <artifactId>kotlin-stdlib</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.mvysny.kaributesting</groupId>
+                <artifactId>karibu-testing-v10</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

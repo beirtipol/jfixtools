@@ -65,6 +65,7 @@ public class FIXParserView extends VerticalLayout {
         setSizeFull();
 
         textArea = new TextArea();
+        textArea.setId("textArea_input");
 
         HorizontalLayout toolbar = new HorizontalLayout();
         add(toolbar);
@@ -82,7 +83,9 @@ public class FIXParserView extends VerticalLayout {
                 Notification.show(e1.getMessage());
             }
         }));
-        toolbar.add(new Button("Replace Pipe with SOH", e -> textArea.setValue(messageUtils.replacePipeWithSOH(textArea.getValue()))));
+        Button replacePipeBtn = new Button("Replace Pipe with SOH", e -> textArea.setValue(messageUtils.replacePipeWithSOH(textArea.getValue())));
+        replacePipeBtn.setId("btn_replacepipe");
+        toolbar.add(replacePipeBtn);
 
         toolbar.add(new Button("Correct Checksum", e -> textArea.setValue(messageUtils.correctChecksum(textArea.getValue()))));
         viewPane = new HorizontalLayout();
@@ -105,7 +108,6 @@ public class FIXParserView extends VerticalLayout {
 
         });
         viewPane.add(textArea);
-
 
         messageViewer = new FIXMessageViewer();
         messageViewer.setSizeFull();
