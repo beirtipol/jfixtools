@@ -6,12 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jfixtools-reporting" />
         <module name="jfixtools-cucumber" />
-        <module name="jfixtools-repository" />
-        <module name="jfixtools-ui" />
-        <module name="jfixtools-logging" />
         <module name="jfixtools-ui-vaadin" />
+        <module name="jfixtools-repository" />
+        <module name="jfixtools-reporting" />
+        <module name="jfixtools-logging" />
+        <module name="jfixtools-ui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

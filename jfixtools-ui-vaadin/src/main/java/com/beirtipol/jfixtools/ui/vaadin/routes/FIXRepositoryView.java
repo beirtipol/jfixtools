@@ -33,8 +33,6 @@ import fixrepository.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @UIScope
 @Component
 @Route(value = "repository")
@@ -76,6 +74,8 @@ public class FIXRepositoryView extends VerticalLayout {
         searchBar.add(searchText);
 
         searchTypeCombo = new ComboBox<>();
+        searchTypeCombo.setWidth("400px");
+        searchTypeCombo.setItemLabelGenerator(item -> item.label);
         searchTypeCombo.setItems(SearchType.values());
         searchTypeCombo.setValue(SearchType.FieldTag);
         searchBar.add(searchTypeCombo);
@@ -90,20 +90,30 @@ public class FIXRepositoryView extends VerticalLayout {
     private void search() {
         switch (searchTypeCombo.getValue()) {
             case FieldTag:
-                Optional<Field> fieldInfo = helper.loadFieldInfo(Integer.parseInt(searchText.getValue()));
-                Optional<FieldData> fieldData = fieldInfo.map(fi -> FieldData.builder()
-                        .helper(helper)
-                        .dictionary(ddCombo.getValue())
-                        .tag(fi.getId().intValue())
-                        .build());
-                fieldData.ifPresent(fd -> {
-                    FIXDataViewer viewer = new FIXDataViewer(fd);
-                    viewer.setSizeFull();
-                    replace(previous, viewer);
-                    previous = viewer;
-                });
+                helper.loadFieldInfo(Integer.parseInt(searchText.getValue()))
+                        .map(fi -> mapFieldInfo(fi))
+                        .ifPresent(fd -> renderFieldData(fd));
                 break;
-
+            case FieldName:
+                helper.loadFieldInfo(searchText.getValue())
+                        .map(fi -> mapFieldInfo(fi))
+                        .ifPresent(fd -> renderFieldData(fd));
+                break;
         }
+    }
+
+    private FieldData mapFieldInfo(Field fieldInfo) {
+        return FieldData.builder()
+                .helper(helper)
+                .dictionary(ddCombo.getValue())
+                .tag(fieldInfo.getId().intValue())
+                .build();
+    }
+
+    private void renderFieldData(FieldData fd) {
+        FIXDataViewer viewer = new FIXDataViewer(fd);
+        viewer.setSizeFull();
+        replace(previous, viewer);
+        previous = viewer;
     }
 }

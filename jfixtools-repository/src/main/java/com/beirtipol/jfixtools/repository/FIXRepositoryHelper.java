@@ -28,9 +28,7 @@ import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -45,10 +43,6 @@ public class FIXRepositoryHelper {
 
     @Autowired
     private FIXRepositoryConfig config;
-
-    public FIXRepositoryHelper() {
-
-    }
 
     @PostConstruct
     private void initialize() {
@@ -82,21 +76,36 @@ public class FIXRepositoryHelper {
         return repository;
     }
 
-    public Optional<Field> loadFieldInfo(int tag) {
+    private Fields getFields() {
         List<Fix> fixes = repository.getFix();
         Fix fix = fixes.get(0);
-        Fields fields = fix.getFields();
-        Optional<Field> result = fields.getField().stream().filter(f -> f.getId().intValue() == tag).findFirst();
-        return result;
+        return fix.getFields();
+    }
+
+    private Messages getMessages() {
+        List<Fix> fixes = repository.getFix();
+        Fix fix = fixes.get(0);
+        return fix.getMessages();
+    }
+
+    public Optional<Field> loadFieldInfo(int tag) {
+        return getFields().getField().stream()
+                .filter(f -> f.getId().intValue() == tag)
+                .findFirst();
+    }
+
+    public Optional<Field> loadFieldInfo(String fieldName) {
+        return getFields().getField().stream()
+                .filter(f -> f.getName().equals(fieldName) || f.getAbbrName().equals(fieldName))
+                .findFirst();
     }
 
     public Optional<Message> loadMessageInfo(String msgType) {
-        List<Fix> fixes = repository.getFix();
-        Fix fix = fixes.get(0);
-        Messages messages = fix.getMessages();
-        Optional<Message> result = messages.getMessage().stream().filter(m -> Objects.equals(m.getMsgType(), msgType)).findFirst();
-        return result;
+        return getMessages().getMessage().stream()
+                .filter(m -> Objects.equals(m.getMsgType(), msgType))
+                .findFirst();
     }
+
 
     public Optional<String> getText(String textID, PurposeT purpose) {
         return getPhrase(textID).map(phrase ->
