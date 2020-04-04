@@ -33,6 +33,8 @@ import fixrepository.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @UIScope
 @Component
 @Route(value = "repository")
@@ -90,16 +92,17 @@ public class FIXRepositoryView extends VerticalLayout {
     private void search() {
         switch (searchTypeCombo.getValue()) {
             case FieldTag:
-                helper.loadFieldInfo(Integer.parseInt(searchText.getValue()))
-                        .map(fi -> mapFieldInfo(fi))
-                        .ifPresent(fd -> renderFieldData(fd));
+                mapAndDisplayField(helper.loadFieldInfo(Integer.parseInt(searchText.getValue())));
                 break;
             case FieldName:
-                helper.loadFieldInfo(searchText.getValue())
-                        .map(fi -> mapFieldInfo(fi))
-                        .ifPresent(fd -> renderFieldData(fd));
+                mapAndDisplayField(helper.loadFieldInfo(searchText.getValue()));
                 break;
         }
+    }
+
+    private void mapAndDisplayField(Optional<Field> field) {
+        field.map(fi -> mapFieldInfo(fi))
+                .ifPresent(fd -> renderFieldData(fd));
     }
 
     private FieldData mapFieldInfo(Field fieldInfo) {
