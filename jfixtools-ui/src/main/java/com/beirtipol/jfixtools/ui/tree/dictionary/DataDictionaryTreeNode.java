@@ -20,10 +20,7 @@ package com.beirtipol.jfixtools.ui.tree.dictionary;
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DataDictionaryTreeNode implements IDictionaryTreeNode {
@@ -43,11 +40,11 @@ public class DataDictionaryTreeNode implements IDictionaryTreeNode {
             if (dict != null) {
                 Map<String, Set<Integer>> messageFields = dict.getMessageFields();
 
-                children.addAll(//
-                        messageFields.keySet()//
-                                .stream()//
-                                .map(msgType -> new MessageTypeTreeNode(this, msgType, dict, helper))//
-                                .sorted((l, r) -> l.getName().compareTo(r.getName()))//
+                children.addAll(
+                        messageFields.keySet()
+                                .stream()
+                                .map(msgType -> new MessageTypeTreeNode(this, msgType, dict, helper))
+                                .sorted(Comparator.comparing(MessageTypeTreeNode::getName))
                                 .collect(Collectors.toList()));
             }
         }

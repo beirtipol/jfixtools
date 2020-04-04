@@ -19,9 +19,12 @@ package com.beirtipol.jfixtools.ui.vaadin.routes;
 
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.DictionaryService;
+import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import com.beirtipol.jfixtools.ui.field.FieldData;
+import com.beirtipol.jfixtools.ui.tree.dictionary.DataDictionaryTreeNode;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDataViewer;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryCombo;
+import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryViewer;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -43,18 +46,17 @@ public class FIXRepositoryView extends VerticalLayout {
     private final TextField                           searchText;
     private final ComboBox<SearchType>                searchTypeCombo;
     private       FIXRepositoryHelper                 helper;
-    private       DictionaryService                   dictionaryService;
     private final FIXDictionaryCombo                  ddCombo;
-    private       com.vaadin.flow.component.Component previous;
+    private       com.vaadin.flow.component.Component dataPanel;
 
     private enum SearchType {
         FieldTag("Field by tag number"),
         FieldName("Field by Name"),
-        MessageType("Message Type");
+        FullDictionary("Full Dictionary");
 
         private String label;
 
-        private SearchType(String label) {
+        SearchType(String label) {
             this.label = label;
         }
     }
@@ -63,7 +65,6 @@ public class FIXRepositoryView extends VerticalLayout {
     public FIXRepositoryView(FIXRepositoryHelper helper,
                              DictionaryService dictionaryService) {
         this.helper            = helper;
-        this.dictionaryService = dictionaryService;
         setSizeFull();
 
         HorizontalLayout searchBar = new HorizontalLayout();
@@ -72,21 +73,28 @@ public class FIXRepositoryView extends VerticalLayout {
         ddCombo = new FIXDictionaryCombo(dictionaryService);
         searchBar.add(ddCombo);
 
-        searchText = new TextField();
-        searchBar.add(searchText);
-
         searchTypeCombo = new ComboBox<>();
         searchTypeCombo.setWidth("400px");
         searchTypeCombo.setItemLabelGenerator(item -> item.label);
         searchTypeCombo.setItems(SearchType.values());
         searchTypeCombo.setValue(SearchType.FieldTag);
+        searchTypeCombo.addValueChangeListener(e -> updateVisibility(e.getValue()));
         searchBar.add(searchTypeCombo);
+
+        searchText = new TextField();
+        searchBar.add(searchText);
 
         Button searchButton = new Button("Search", e -> search());
         searchBar.add(searchButton);
 
-        previous = new VerticalLayout();
-        add(previous);
+        dataPanel = new VerticalLayout();
+        add(dataPanel);
+
+        updateVisibility(searchTypeCombo.getValue());
+    }
+
+    private void updateVisibility(SearchType value) {
+        searchText.setVisible(value == SearchType.FullDictionary);
     }
 
     private void search() {
@@ -96,6 +104,15 @@ public class FIXRepositoryView extends VerticalLayout {
                 break;
             case FieldName:
                 mapAndDisplayField(helper.loadFieldInfo(searchText.getValue()));
+                break;
+            case FullDictionary:
+                NamedDataDictionary dict = ddCombo.getValue();
+                DataDictionaryTreeNode node = new DataDictionaryTreeNode(dict, helper);
+                FIXDictionaryViewer viewer = new FIXDictionaryViewer();
+                viewer.setSizeFull();
+                viewer.setContent(node);
+                replace(dataPanel, viewer);
+                dataPanel = viewer;
                 break;
         }
     }
@@ -116,7 +133,7 @@ public class FIXRepositoryView extends VerticalLayout {
     private void renderFieldData(FieldData fd) {
         FIXDataViewer viewer = new FIXDataViewer(fd);
         viewer.setSizeFull();
-        replace(previous, viewer);
-        previous = viewer;
+        replace(dataPanel, viewer);
+        dataPanel = viewer;
     }
 }
