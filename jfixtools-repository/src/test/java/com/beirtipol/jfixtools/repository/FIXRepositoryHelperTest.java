@@ -18,7 +18,9 @@
 package com.beirtipol.jfixtools.repository;
 
 import fixrepository.Field;
+import fixrepository.Message;
 import fixrepository.PurposeT;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -28,6 +30,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -46,8 +49,22 @@ public class FIXRepositoryHelperTest {
     }
 
     @Test
+    public void loadField35ByName() {
+        Optional<Field> field = helper.loadFieldInfo("MsgType");
+        assertTrue(field.isPresent());
+        assertThat(helper.loadFieldInfo(35)).isEqualTo(field);
+    }
+
+    @Test
     public void loadField35Text() {
         Optional<Field> field = helper.loadFieldInfo(35);
         assertTrue(helper.getText("FIELD_35", PurposeT.SYNOPSIS).get().contains("the MsgType field"));
+    }
+
+    @Test
+    public void loadMessage() {
+        Optional<Message> msg = helper.loadMessageInfo("8");
+        assertTrue(msg.isPresent());
+        assertThat(msg.get().getName()).isEqualTo("ExecutionReport");
     }
 }
