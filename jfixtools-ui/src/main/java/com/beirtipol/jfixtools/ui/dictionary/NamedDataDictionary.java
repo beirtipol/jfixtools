@@ -69,22 +69,6 @@ public class NamedDataDictionary extends DataDictionary {
     }
 
     @SuppressWarnings("unchecked")
-    public Set<String> getFieldValues(int field) {
-        Set<String> result = new HashSet<>();
-        try {
-            Field fld = DataDictionary.class.getDeclaredField("fieldValues");
-            fld.setAccessible(true);
-            Map<Integer, Set<String>> fieldValues = (Map<Integer, Set<String>>) fld.get(this);
-            if (fieldValues.containsKey(field)) {
-                result = fieldValues.get(field);
-            }
-        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
-            log.error("Could not access field values", e);
-        }
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
     public Map<String, Set<Integer>> getMessageFields() {
         Map<String, Set<Integer>> result = new HashMap<>();
         try {

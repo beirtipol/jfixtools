@@ -34,6 +34,12 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This allows simple display of a field in a FIX {@link quickfix.Message}. It treats all children as plain text but
+ * has a special case treatment for the {@link XmlData} field which it returns as a child node.
+ *
+ * @see XMLTreeNode
+ */
 @Slf4j
 public class StringFieldTreeNode extends FIXTreeNode {
     private FIXRepositoryHelper    helper;
@@ -101,7 +107,7 @@ public class StringFieldTreeNode extends FIXTreeNode {
 
     public FieldData getFieldData() {
         return FieldData.builder()
-                .tag(tag)
+                .tagNum(tag)
                 .messageType(messageType)
                 .dictionary(dictionary)
                 .helper(helper)

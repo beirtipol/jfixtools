@@ -94,7 +94,7 @@ public class FIXRepositoryView extends VerticalLayout {
     }
 
     private void updateVisibility(SearchType value) {
-        searchText.setVisible(value == SearchType.FullDictionary);
+        searchText.setVisible(value != SearchType.FullDictionary);
     }
 
     private void search() {
@@ -126,7 +126,7 @@ public class FIXRepositoryView extends VerticalLayout {
         return FieldData.builder()
                 .helper(helper)
                 .dictionary(ddCombo.getValue())
-                .tag(fieldInfo.getId().intValue())
+                .tagNum(fieldInfo.getId().intValue())
                 .build();
     }
 

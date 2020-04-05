@@ -36,6 +36,5 @@ public class NamedDataDictionaryTest {
     public void testDefaultDictionaries(String dictionary) throws ConfigError {
         NamedDataDictionary ndd = new NamedDataDictionary(dictionary, dictionary);
         Assertions.assertThat(ndd.getName()).isEqualTo(dictionary);
-        Assertions.assertThat(ndd.getFieldValues(35)).contains("0");
     }
 }

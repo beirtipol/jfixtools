@@ -28,6 +28,11 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Optional;
 
+/**
+ * This class serves as a decorator for a FIXRepository enum values. Its purpose is to provide easy access to the data
+ * contained within the repository. It standardises the methods available on Fields and Enums to make it easily usable
+ * within a UI grid.
+ */
 @EqualsAndHashCode
 @Data
 @Builder
@@ -39,11 +44,11 @@ public class EnumData implements FIXData {
     private Enum                enumField;
 
     public String getDescription() {
-        return dictionary.getValueName(getTag(), name);
+        return dictionary.getValueName(field.getId().intValue(), name);
     }
 
-    public int getTag() {
-        return field.getId().intValue();
+    public String getTag() {
+        return "" + field.getId().intValue();
     }
 
     public String getSynopsis() {

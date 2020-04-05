@@ -35,6 +35,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class allows easy traversal of an XML Document in a tree-like structure.
+ */
 @Slf4j
 public class XMLTreeNode extends FIXTreeNode {
     private       Node                xmlNode;

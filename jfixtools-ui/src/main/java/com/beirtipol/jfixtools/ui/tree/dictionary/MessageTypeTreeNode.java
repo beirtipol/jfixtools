@@ -19,33 +19,37 @@ package com.beirtipol.jfixtools.ui.tree.dictionary;
 
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
+import com.beirtipol.jfixtools.ui.field.FIXData;
+import com.beirtipol.jfixtools.ui.field.MessageData;
 import com.beirtipol.jfixtools.ui.tree.ITreeNode;
-import fixrepository.Message;
-import fixrepository.PurposeT;
-import quickfix.DataDictionary;
-import quickfix.field.MsgType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class MessageTypeTreeNode implements IDictionaryTreeNode {
+public class MessageTypeTreeNode implements IDictionaryTreeNode,HasFIXData {
 
-    private NamedDataDictionary       dict;
-    private List<IDictionaryTreeNode> children;
-    private ITreeNode<?>              parent;
-    private String                    messageType;
-    private FIXRepositoryHelper       helper;
-    private Optional<Message>         messageInfo;
-    private String                    synopsis;
+    private       NamedDataDictionary       dict;
+    private       List<IDictionaryTreeNode> children;
+    private       ITreeNode<?>              parent;
+    private       String                    messageType;
+    private       FIXRepositoryHelper       helper;
+    private final MessageData               messageData;
 
     public MessageTypeTreeNode(ITreeNode<?> parent, String messageType, NamedDataDictionary dict, FIXRepositoryHelper helper) {
         this.parent      = parent;
         this.messageType = messageType;
         this.dict        = dict;
         this.helper      = helper;
-        this.messageInfo = helper.loadMessageInfo(messageType);
+        messageData      = MessageData.builder()
+                .messageType(messageType)
+                .dictionary(dict)
+                .helper(helper)
+                .build();
+    }
+
+    public FIXData getFIXData() {
+        return messageData;
     }
 
     @Override
@@ -53,7 +57,7 @@ public class MessageTypeTreeNode implements IDictionaryTreeNode {
         if (children == null) {
             children = new ArrayList<>();
             children.addAll(dict.getMessageFields(messageType).stream()//
-                    .map(field -> new FieldTreeNode(this, field, dict, messageType, helper))//
+                    .map(field -> new DictionaryFieldTreeNode(this, field, dict, messageType, helper))//
                     .collect(Collectors.toList()));
         }
         return children;
@@ -64,12 +68,7 @@ public class MessageTypeTreeNode implements IDictionaryTreeNode {
     }
 
     public String getName() {
-        if (DataDictionary.HEADER_ID.equals(messageType)) {
-            return "Header";
-        } else if (DataDictionary.TRAILER_ID.equals(messageType)) {
-            return "Trailer";
-        }
-        return dict.getValueName(MsgType.FIELD, messageType);
+        return messageData.getName();
     }
 
     @Override
@@ -99,15 +98,6 @@ public class MessageTypeTreeNode implements IDictionaryTreeNode {
 
     @Override
     public String getSynopsis() {
-        if (synopsis == null) {
-            synopsis = "";
-            if (messageInfo.isPresent()) {
-                Optional<String> synopsisText = helper.getText(messageInfo.get().getTextId(), PurposeT.SYNOPSIS);
-                if (synopsisText.isPresent()) {
-                    synopsis = synopsisText.get();
-                }
-            }
-        }
-        return synopsis;
+        return messageData.getSynopsis();
     }
 }

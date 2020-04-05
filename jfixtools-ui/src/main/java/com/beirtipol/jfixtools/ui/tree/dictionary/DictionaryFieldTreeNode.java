@@ -19,16 +19,20 @@ package com.beirtipol.jfixtools.ui.tree.dictionary;
 
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
+import com.beirtipol.jfixtools.ui.field.FIXData;
+import com.beirtipol.jfixtools.ui.field.FieldData;
 import fixrepository.Field;
-import fixrepository.PurposeT;
 import quickfix.DataDictionary;
 import quickfix.DataDictionary.GroupInfo;
-import quickfix.FieldType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FieldTreeNode implements IDictionaryTreeNode {
+/**
+ * This provides information for a {@link DataDictionary} {@link Field} rather than a {@link quickfix.Message}
+ * {@link quickfix.Field}
+ */
+public class DictionaryFieldTreeNode implements IDictionaryTreeNode,HasFIXData {
 
     private NamedDataDictionary       dict;
     private List<IDictionaryTreeNode> children;
@@ -36,16 +40,25 @@ public class FieldTreeNode implements IDictionaryTreeNode {
     private IDictionaryTreeNode       parent;
     private String                    messageType;
     private FIXRepositoryHelper       helper;
-    private Optional<Field>           fieldInfo;
     private String                    synopsis;
+    private final FieldData fieldData;
 
-    public FieldTreeNode(IDictionaryTreeNode parent, int field, NamedDataDictionary dict, String messageType, FIXRepositoryHelper helper) {
+    public DictionaryFieldTreeNode(IDictionaryTreeNode parent, int field, NamedDataDictionary dict, String messageType, FIXRepositoryHelper helper) {
         this.parent      = parent;
         this.field       = field;
         this.dict        = dict;
         this.messageType = messageType;
         this.helper      = helper;
-        this.fieldInfo   = helper.loadFieldInfo(field);
+        fieldData        = FieldData.builder()
+                .tagNum(field)
+                .dictionary(dict)
+                .messageType(messageType)
+                .helper(helper)
+                .build();
+    }
+
+    public FIXData getFIXData(){
+        return fieldData;
     }
 
     @Override
@@ -53,20 +66,15 @@ public class FieldTreeNode implements IDictionaryTreeNode {
         if (children == null) {
             children = new ArrayList<>();
 
-            if (isGroup()) {
+            if (fieldData.isGroup()) {
                 GroupInfo groupInfo = dict.getGroup(messageType, field);
                 DataDictionary groupDD = groupInfo.getDataDictionary();
                 children.addAll(Arrays.stream(groupDD.getOrderedFields())//
-                        .mapToObj(childField -> new FieldTreeNode(this, //
+                        .mapToObj(childField -> new DictionaryFieldTreeNode(this, //
                                 childField, //
                                 new NamedDataDictionary(dict.getFieldName(field), dict), messageType, helper))//
                         .collect(Collectors.toList()));
 
-            } else {
-                Set<String> fieldValues = dict.getFieldValues(field);
-                children.addAll(fieldValues.stream()//
-                        .map(value -> new FieldValueTreeNode(this, value, dict.getValueName(field, value), fieldInfo, helper))//
-                        .collect(Collectors.toList()));
             }
         }
         return children;
@@ -77,19 +85,15 @@ public class FieldTreeNode implements IDictionaryTreeNode {
     }
 
     public String getName() {
-        return dict.getFieldName(field);
+        return fieldData.getName();
     }
 
     public String getType() {
-        FieldType fieldType = dict.getFieldType(field);
-        if (fieldType != null) {
-            return fieldType.name();
-        }
-        return "";
+        return fieldData.getType();
     }
 
     public boolean isRequired() {
-        return dict.isRequiredField(messageType, field);
+        return fieldData.isRequired();
     }
 
     @Override
@@ -99,27 +103,12 @@ public class FieldTreeNode implements IDictionaryTreeNode {
 
     @Override
     public String getDescription() {
-        if (isGroup()) {
+        if (fieldData.isGroup()) {
             return "Group Field";
         } else if (hasChildren()) {
-            return "Enum : " + getJavaType();
+            return "Enum : " + fieldData.getJavaType().getSimpleName();
         }
-        return getType() + " : " + getJavaType();
-    }
-
-    public String getJavaType() {
-        FieldType fieldType = dict.getFieldType(field);
-        if (fieldType != null) {
-            Class<?> javaType = dict.getFieldType(field).getJavaType();
-            if (javaType != null) {
-                return javaType.getSimpleName();
-            }
-        }
-        return "";
-    }
-
-    public boolean isGroup() {
-        return dict.isGroup(messageType, field);
+        return getType() + " : " + fieldData.getJavaType().getSimpleName();
     }
 
     @Override
@@ -135,13 +124,7 @@ public class FieldTreeNode implements IDictionaryTreeNode {
     @Override
     public String getSynopsis() {
         if (synopsis == null) {
-            synopsis = "";
-            if (fieldInfo.isPresent()) {
-                Optional<String> synopsisText = helper.getText(fieldInfo.get().getTextId(), PurposeT.SYNOPSIS);
-                if (synopsisText.isPresent()) {
-                    synopsis = synopsisText.get();
-                }
-            }
+            synopsis = fieldData.getSynopsis();
         }
         return synopsis;
     }

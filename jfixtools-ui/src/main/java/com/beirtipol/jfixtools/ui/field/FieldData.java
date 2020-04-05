@@ -24,28 +24,39 @@ import fixrepository.PurposeT;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import quickfix.FieldType;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * This class serves as a decorator for a FIXRepository field. Its purpose is to provide easy access to the data contained
+ * within the repository. It standardises the methods available on Fields and Enums to make it easily usable within
+ * a UI grid.
+ */
 @EqualsAndHashCode
 @Data
 @Builder
 public class FieldData implements FIXData {
-    private Optional<Field>     field;
-    private int                 tag;
-    private NamedDataDictionary dictionary;
-    private FIXRepositoryHelper helper;
+    private final int                 tagNum;
+    private final NamedDataDictionary dictionary;
+    private final FIXRepositoryHelper helper;
     private String              messageType;
-    private List<EnumData>      enums;
+
+    private List<EnumData>  enums;
+    private Optional<Field> field;
 
     public Optional<Field> getField() {
         if (field == null) {
-            field = helper.loadFieldInfo(tag);
+            field = helper.loadFieldInfo(tagNum);
         }
         return field;
+    }
+
+    public String getTag() {
+        return "" + tagNum;
     }
 
     public String getName() {
@@ -53,6 +64,13 @@ public class FieldData implements FIXData {
             return getField().get().getName();
         }
         return "";
+    }
+
+    public boolean isRequired() {
+        if (messageType != null) {
+            return dictionary.isRequiredField(messageType, tagNum);
+        }
+        return false;
     }
 
     public boolean isEnum() {
@@ -89,13 +107,13 @@ public class FieldData implements FIXData {
 
     public boolean isGroup() {
         if (messageType != null) {
-            return dictionary.isGroup(messageType, tag);
+            return dictionary.isGroup(messageType, tagNum);
         }
         return false;
     }
 
     public String getType() {
-        FieldType fieldType = dictionary.getFieldType(tag);
+        FieldType fieldType = dictionary.getFieldType(tagNum);
         if (fieldType != null) {
             return fieldType.name();
         }
@@ -112,14 +130,14 @@ public class FieldData implements FIXData {
 
     public boolean required() {
         if (messageType != null) {
-            return dictionary.isRequiredField(messageType, tag);
+            return dictionary.isRequiredField(messageType, tagNum);
         }
         return false;
     }
 
     private String getDescription(PurposeT purpose) {
         String result = "";
-        if (field.isPresent()) {
+        if (getField().isPresent()) {
             Optional<String> text = helper.getText(getField().get().getTextId(), purpose);
             if (text.isPresent()) {
                 result = text.get();
@@ -129,9 +147,9 @@ public class FieldData implements FIXData {
     }
 
     public Class<?> getJavaType() {
-        FieldType fieldType = dictionary.getFieldType(tag);
+        FieldType fieldType = dictionary.getFieldType(tagNum);
         if (fieldType != null) {
-            return dictionary.getFieldType(tag).getJavaType();
+            return dictionary.getFieldType(tagNum).getJavaType();
         }
         return Class.class;
     }

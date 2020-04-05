@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+
 @Slf4j
 public class FieldMapTreeNode extends FIXTreeNode {
     private String              messageType;

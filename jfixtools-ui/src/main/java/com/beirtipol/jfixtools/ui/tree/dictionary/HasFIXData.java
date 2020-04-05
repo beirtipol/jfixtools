@@ -15,18 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.beirtipol.jfixtools.ui.field;
+package com.beirtipol.jfixtools.ui.tree.dictionary;
 
-public interface FIXData {
-    String getTag();
+import com.beirtipol.jfixtools.ui.field.FIXData;
 
-    String getName();
-
-    String getSynopsis();
-
-    String getElaboration();
-
-    String getAdded();
-
-    String getDeprecated();
+public interface HasFIXData {
+    FIXData getFIXData();
 }

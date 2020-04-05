@@ -27,6 +27,10 @@ import quickfix.field.MsgType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class allows easy traversal of a FIX {@link Message} in a tree-like structure. It separates the header, body
+ * and trailer in to separate child fieldmaps to help the user easily distinguish fields.
+ */
 @Slf4j
 public class FIXMessageTreeNode extends FIXTreeNode {
     private Message             message;

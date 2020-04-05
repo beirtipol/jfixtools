@@ -17,13 +17,16 @@
 
 package com.beirtipol.jfixtools.ui.vaadin.components;
 
+import com.beirtipol.jfixtools.ui.tree.dictionary.HasFIXData;
 import com.beirtipol.jfixtools.ui.tree.dictionary.IDictionaryTreeNode;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.provider.hierarchy.AbstractBackEndHierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import java.util.stream.Stream;
 
@@ -38,6 +41,17 @@ public class FIXDictionaryViewer extends VerticalLayout {
         tree.addColumn(IDictionaryTreeNode::isRequired).setHeader("Required").setResizable(true);
         tree.addColumn(IDictionaryTreeNode::getDescription).setHeader("Description").setResizable(true);
         tree.addColumn(IDictionaryTreeNode::getSynopsis).setHeader("Synopsis").setFlexGrow(10).setResizable(true);
+        tree.setItemDetailsRenderer(new ComponentRenderer<Component,IDictionaryTreeNode>(){
+            @Override
+            public Component createComponent(IDictionaryTreeNode item) {
+                if (item instanceof HasFIXData) {
+                    return new FIXDataViewer(((HasFIXData) item).getFIXData());
+                }
+                VerticalLayout verticalLayout = new VerticalLayout();
+                verticalLayout.setVisible(false);
+                return verticalLayout;
+            }
+        });
         tree.setPageSize(1000);
         add(tree);
         tree.setSizeFull();

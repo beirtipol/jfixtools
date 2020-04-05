@@ -23,6 +23,11 @@ import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The {@link quickfix.DataDictionary} tree structure is slightly different to that of a {@link quickfix.Message}. This
+ * is because we are not traversing a populated message, but rather all available fields which are defined for that
+ * message within the DataDictionary.
+ */
 public class DataDictionaryTreeNode implements IDictionaryTreeNode {
     private List<IDictionaryTreeNode> children;
     private NamedDataDictionary       dict;
