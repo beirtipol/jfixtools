@@ -104,10 +104,9 @@ public class FIXRepositoryHelper {
 
 
     public Optional<String> getText(String textID, PurposeT purpose) {
-        return getPhrase(textID).map(phrase ->
-                getText(phrase, purpose).map(text -> getText(text)
-                ).orElse(Optional.empty())
-        ).orElse(Optional.empty());
+        return getPhrase(textID)
+                .flatMap(phrase -> getText(phrase, purpose)
+                        .flatMap(this::getText));
     }
 
     private Optional<String> getText(Text text) {
