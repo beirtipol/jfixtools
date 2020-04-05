@@ -72,10 +72,6 @@ public class FIXRepositoryHelper {
         return (T) unmarshaller.unmarshal(resource);
     }
 
-    public FixRepository getRepository() {
-        return repository;
-    }
-
     private Fields getFields() {
         List<Fix> fixes = repository.getFix();
         Fix fix = fixes.get(0);
