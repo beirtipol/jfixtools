@@ -24,6 +24,7 @@ import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import com.beirtipol.jfixtools.logging.parsers.FIXMessageStreamParser;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.mockito.internal.matchers.Null;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -33,6 +34,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,12 +75,12 @@ public class FIXLogFileRepository implements FIXLogRepository {
                     try {
                         Path p = Paths.get(FIXLogFileConfiguration.class.getClassLoader().getResource(path).toURI());
                         return Files.lines(p, Charset.forName(config.getCharset()));
-                    } catch (URISyntaxException | IOException e) {
+                    } catch (URISyntaxException | IOException | NullPointerException e) {
                         log.error("Could not read files from: " + path);
                         return null;
                     }
                 })
-                .filter(lines -> lines != null)
+                .filter(Objects::nonNull)
                 .flatMap(Function.identity());
         return getStreamParser().filterStreamOfLines(textLines, config.getSessionId(), from, to).collect(Collectors.toList());
     }

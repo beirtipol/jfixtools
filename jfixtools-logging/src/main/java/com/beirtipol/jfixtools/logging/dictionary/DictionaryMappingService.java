@@ -31,7 +31,7 @@ public class DictionaryMappingService {
     public Optional<String> dictionaryName(FIXSessionID sessionId) {
         return dictionaryMappings.getMappings().stream()
                 .filter(mapping -> mapping.getSessionID().matches(sessionId))
-                .map(mapping -> mapping.getDictionaryName())
+                .map(DictionaryMapping::getDictionaryName)
                 .findFirst();
     }
 }

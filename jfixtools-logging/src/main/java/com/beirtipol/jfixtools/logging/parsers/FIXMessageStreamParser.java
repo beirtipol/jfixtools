@@ -23,6 +23,7 @@ import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -55,7 +56,7 @@ public class FIXMessageStreamParser {
     public Stream<FIXLogEntry> filterStreamOfLines(Stream<String> lines, FIXSessionID sessionId, LocalDateTime from, LocalDateTime to) {
         return lines
                 .map(line -> getLinePattern().matcher(line))
-                .filter(matcher -> matcher.matches())
+                .filter(Matcher::matches)
                 .map(matcher -> matcher.group(1))
                 .map(text -> parser.parse(text))
                 .filter(entry -> sessionId.getSenderCompID().equals(entry.getSendercompid()))

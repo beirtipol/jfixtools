@@ -34,6 +34,7 @@ public class FIXMessageLogEntryParser {
             .appendPattern("yyyyMMdd-HH:mm:ss")
             .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
 
+    @SuppressWarnings("rawtypes")
     public FIXLogEntry parse(String text) {
         FIXLogEntry.FIXLogEntryBuilder builder = FIXLogEntry.builder();
         Matcher sendingTime = SENDING_TIME_PATTERN.matcher(text);
