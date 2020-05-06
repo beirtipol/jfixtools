@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MessageTypeTreeNode implements IDictionaryTreeNode,HasFIXData {
+public class MessageTypeTreeNode implements IDictionaryTreeNode, HasFIXData {
 
     private       NamedDataDictionary       dict;
     private       List<IDictionaryTreeNode> children;

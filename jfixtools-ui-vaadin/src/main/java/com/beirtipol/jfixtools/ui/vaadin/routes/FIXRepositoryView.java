@@ -64,7 +64,7 @@ public class FIXRepositoryView extends VerticalLayout {
     @Autowired
     public FIXRepositoryView(FIXRepositoryHelper helper,
                              DictionaryService dictionaryService) {
-        this.helper            = helper;
+        this.helper = helper;
         setSizeFull();
 
         HorizontalLayout searchBar = new HorizontalLayout();

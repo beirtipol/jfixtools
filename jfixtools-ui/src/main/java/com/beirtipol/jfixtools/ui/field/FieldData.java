@@ -24,7 +24,6 @@ import fixrepository.PurposeT;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import quickfix.FieldType;
 
 import java.util.List;
@@ -43,7 +42,8 @@ public class FieldData implements FIXData {
     private final int                 tagNum;
     private final NamedDataDictionary dictionary;
     private final FIXRepositoryHelper helper;
-    private String              messageType;
+    private       String              messageType;
+
 
     private List<EnumData>  enums;
     private Optional<Field> field;

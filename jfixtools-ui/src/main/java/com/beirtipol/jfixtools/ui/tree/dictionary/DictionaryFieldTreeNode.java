@@ -25,23 +25,25 @@ import fixrepository.Field;
 import quickfix.DataDictionary;
 import quickfix.DataDictionary.GroupInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * This provides information for a {@link DataDictionary} {@link Field} rather than a {@link quickfix.Message}
  * {@link quickfix.Field}
  */
-public class DictionaryFieldTreeNode implements IDictionaryTreeNode,HasFIXData {
+public class DictionaryFieldTreeNode implements IDictionaryTreeNode, HasFIXData {
 
-    private NamedDataDictionary       dict;
-    private List<IDictionaryTreeNode> children;
-    private int                       field;
-    private IDictionaryTreeNode       parent;
-    private String                    messageType;
-    private FIXRepositoryHelper       helper;
-    private String                    synopsis;
-    private final FieldData fieldData;
+    private       NamedDataDictionary       dict;
+    private       List<IDictionaryTreeNode> children;
+    private       int                       field;
+    private       IDictionaryTreeNode       parent;
+    private       String                    messageType;
+    private       FIXRepositoryHelper       helper;
+    private       String                    synopsis;
+    private final FieldData                 fieldData;
 
     public DictionaryFieldTreeNode(IDictionaryTreeNode parent, int field, NamedDataDictionary dict, String messageType, FIXRepositoryHelper helper) {
         this.parent      = parent;
@@ -57,7 +59,7 @@ public class DictionaryFieldTreeNode implements IDictionaryTreeNode,HasFIXData {
                 .build();
     }
 
-    public FIXData getFIXData(){
+    public FIXData getFIXData() {
         return fieldData;
     }
 

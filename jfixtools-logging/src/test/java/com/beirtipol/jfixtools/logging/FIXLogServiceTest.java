@@ -18,7 +18,6 @@
 package com.beirtipol.jfixtools.logging;
 
 import com.beirtipol.jfixtools.logging.file.FIXLogFilesConfiguration;
-import com.beirtipol.jfixtools.logging.jpa.FIXLogJPAService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +36,7 @@ public class FIXLogServiceTest {
     private FIXLogFilesConfiguration configuration;
 
     @Autowired
-    private FIXLogService            fixLogService;
+    private FIXLogService fixLogService;
 
     @Test
     public void retrieveAllRepositoriesAndSessions() {

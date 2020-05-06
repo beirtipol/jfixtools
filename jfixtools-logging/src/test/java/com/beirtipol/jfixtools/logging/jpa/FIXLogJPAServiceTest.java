@@ -21,7 +21,6 @@ import com.beirtipol.jfixtools.logging.model.FIXLogEntry;
 import com.beirtipol.jfixtools.logging.model.FIXLogEntryType;
 import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 public class FIXLogJPAServiceTest {
     @Autowired
-    private FIXLogJPAService service;
+    private        FIXLogJPAService service;
     private static FIXSessionID     sessionID;
     private static LocalDateTime    fromDate;
     private static LocalDateTime    toDate;

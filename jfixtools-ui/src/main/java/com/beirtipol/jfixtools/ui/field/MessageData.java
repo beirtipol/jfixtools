@@ -36,12 +36,12 @@ import java.util.Optional;
  */
 @EqualsAndHashCode
 @Data
-public class MessageData implements FIXData{
-    private String messageType;
+public class MessageData implements FIXData {
+    private String              messageType;
     private NamedDataDictionary dictionary;
     private FIXRepositoryHelper helper;
 
-    private Optional<Message>   message;
+    private Optional<Message> message;
 
     @Builder
     public MessageData(String messageType, NamedDataDictionary dictionary, FIXRepositoryHelper helper) {

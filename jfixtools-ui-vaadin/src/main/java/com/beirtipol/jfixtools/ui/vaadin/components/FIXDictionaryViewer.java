@@ -41,7 +41,7 @@ public class FIXDictionaryViewer extends VerticalLayout {
         tree.addColumn(IDictionaryTreeNode::isRequired).setHeader("Required").setResizable(true);
         tree.addColumn(IDictionaryTreeNode::getDescription).setHeader("Description").setResizable(true);
         tree.addColumn(IDictionaryTreeNode::getSynopsis).setHeader("Synopsis").setFlexGrow(10).setResizable(true);
-        tree.setItemDetailsRenderer(new ComponentRenderer<Component,IDictionaryTreeNode>(){
+        tree.setItemDetailsRenderer(new ComponentRenderer<Component, IDictionaryTreeNode>() {
             @Override
             public Component createComponent(IDictionaryTreeNode item) {
                 if (item instanceof HasFIXData) {

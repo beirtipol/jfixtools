@@ -59,7 +59,7 @@ public class FIXLogsView extends VerticalLayout {
     private final DictionaryMappingService  dictionaryMappingService;
     private final DictionaryService         dictionaryService;
     private final FIXLogService             fixLogService;
-    private MessageUtils messageUtils;
+    private       MessageUtils              messageUtils;
     private       FIXMessageViewer          messageViewer;
     private       FIXDictionaryCombo        dictionaryCombo;
     private final ArrayList<FIXLogEntry>    loadedEntries = new ArrayList<>();

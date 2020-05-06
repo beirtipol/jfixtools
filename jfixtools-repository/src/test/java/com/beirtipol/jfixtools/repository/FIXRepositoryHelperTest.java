@@ -20,7 +20,6 @@ package com.beirtipol.jfixtools.repository;
 import fixrepository.Field;
 import fixrepository.Message;
 import fixrepository.PurposeT;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

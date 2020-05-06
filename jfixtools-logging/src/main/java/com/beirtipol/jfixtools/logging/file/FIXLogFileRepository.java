@@ -24,7 +24,6 @@ import com.beirtipol.jfixtools.logging.model.FIXSessionID;
 import com.beirtipol.jfixtools.logging.parsers.FIXMessageStreamParser;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.mockito.internal.matchers.Null;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

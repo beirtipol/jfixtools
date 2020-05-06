@@ -17,14 +17,12 @@
 
 package com.beirtipol.jfixtools.ui.vaadin.routes;
 
-import com.beirtipol.jfixtools.logging.FIXLogService;
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.DictionaryService;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import com.beirtipol.jfixtools.ui.util.MessageUtils;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryCombo;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXMessageViewer;
-import com.beirtipol.jfixtools.ui.vaadin.components.FIXSessionCombo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -59,9 +57,9 @@ public class FIXParserView extends VerticalLayout {
     private static final String MINI      = ">>";
 
     @Autowired
-    public FIXParserView(FIXRepositoryHelper repositoryHelper, 
+    public FIXParserView(FIXRepositoryHelper repositoryHelper,
                          DictionaryService dictionaryService,
-                         MessageUtils messageUtils ) {
+                         MessageUtils messageUtils) {
         setSizeFull();
 
         textArea = new TextArea();
