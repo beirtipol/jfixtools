@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @TestPropertySource(locations = "./application-test.properties")
 @EnableConfigurationProperties(FIXRepositoryConfig.class)
-@ContextConfiguration(classes = {FIXRepositoryHelper.class})
+@ContextConfiguration(classes = {FIXRepositoryHelper.class, FixRepositoryJAXB.class})
 public class FIXRepositoryHelperTest {
 
     @Autowired
