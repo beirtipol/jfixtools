@@ -19,6 +19,7 @@ package com.beirtipol.jfixtools.ui.field;
 
 import com.beirtipol.jfixtools.repository.FIXRepositoryConfig;
 import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
+import com.beirtipol.jfixtools.repository.FixRepositoryJAXB;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,9 @@ import quickfix.field.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = {FIXRepositoryHelper.class})
+@SpringBootTest(classes = {FIXRepositoryHelper.class, FixRepositoryJAXB.class})
 @TestPropertySource(locations = "./application-test.properties")
-@EnableConfigurationProperties(FIXRepositoryConfig.class)
+@EnableConfigurationProperties({FIXRepositoryConfig.class})
 public class FieldDataTest {
     @Autowired
     private FIXRepositoryHelper helper;
