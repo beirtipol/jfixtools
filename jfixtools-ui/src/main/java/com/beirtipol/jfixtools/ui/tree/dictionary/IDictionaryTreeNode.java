@@ -29,4 +29,10 @@ public interface IDictionaryTreeNode extends ITreeNode<IDictionaryTreeNode> {
     String getDescription();
 
     String getSynopsis();
+
+    String getElaboration();
+
+    String getAdded();
+
+    String getDeprecated();
 }

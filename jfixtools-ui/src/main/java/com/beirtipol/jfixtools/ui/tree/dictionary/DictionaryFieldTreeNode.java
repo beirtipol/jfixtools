@@ -130,4 +130,19 @@ public class DictionaryFieldTreeNode implements IDictionaryTreeNode, HasFIXData 
         }
         return synopsis;
     }
+
+    @Override
+    public String getElaboration() {
+        return fieldData.getElaboration();
+    }
+
+    @Override
+    public String getAdded() {
+        return fieldData.getAdded();
+    }
+
+    @Override
+    public String getDeprecated() {
+        return fieldData.getDeprecated();
+    }
 }

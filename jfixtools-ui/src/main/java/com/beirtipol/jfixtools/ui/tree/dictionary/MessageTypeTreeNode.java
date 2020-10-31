@@ -100,4 +100,19 @@ public class MessageTypeTreeNode implements IDictionaryTreeNode, HasFIXData {
     public String getSynopsis() {
         return messageData.getSynopsis();
     }
+
+    @Override
+    public String getElaboration() {
+        return messageData.getElaboration();
+    }
+
+    @Override
+    public String getAdded() {
+        return messageData.getAdded();
+    }
+
+    @Override
+    public String getDeprecated() {
+        return messageData.getDeprecated();
+    }
 }

@@ -25,6 +25,7 @@ import com.beirtipol.jfixtools.ui.tree.dictionary.DataDictionaryTreeNode;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDataViewer;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryCombo;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryViewer;
+import com.beirtipol.jfixtools.ui.vaadin.components.NavigationBar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -64,6 +65,7 @@ public class FIXRepositoryView extends VerticalLayout {
     @Autowired
     public FIXRepositoryView(FIXRepositoryHelper helper,
                              DictionaryService dictionaryService) {
+        add(new NavigationBar());
         this.helper = helper;
         setSizeFull();
 

@@ -73,7 +73,7 @@ public class DataDictionaryTreeNode implements IDictionaryTreeNode {
 
     @Override
     public String getName() {
-        return getName();
+        return dict.getName();
     }
 
     @Override
@@ -91,4 +91,18 @@ public class DataDictionaryTreeNode implements IDictionaryTreeNode {
         return "";
     }
 
+    @Override
+    public String getElaboration() {
+        return "";
+    }
+
+    @Override
+    public String getAdded() {
+        return "";
+    }
+
+    @Override
+    public String getDeprecated() {
+        return "";
+    }
 }

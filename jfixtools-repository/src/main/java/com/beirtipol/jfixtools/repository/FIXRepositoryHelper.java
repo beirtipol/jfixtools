@@ -25,10 +25,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,9 +34,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Repository
 public class FIXRepositoryHelper {
-    private JAXBContext   context;
+
     private FixRepository repository;
     private Phrases       phrases;
+
+    @Autowired
+    private FixRepositoryJAXB jaxb;
 
     @Autowired
     private FIXRepositoryConfig config;
@@ -47,29 +47,19 @@ public class FIXRepositoryHelper {
     @PostConstruct
     private void initialize() {
         try {
-            log.info("Creating JAXB Context");
-            context = JAXBContext.newInstance(FixRepository.class);
             log.info("Loading Repository XML");
             long start = System.nanoTime();
-            repository = loadXML(config.getRepositoryFilePath());
+            repository = jaxb.loadXML(config.getRepositoryFilePath());
             int nanos = 1000000;
             log.info("Loaded Repository XML in " + (System.nanoTime() - start) / nanos + "ms");
             log.info("Loading Phrases XML");
             start   = System.nanoTime();
-            phrases = loadXML(config.getPhrasesFilePath());
+            phrases = jaxb.loadXML(config.getPhrasesFilePath());
             log.info("Loaded Phrases XML in " + (System.nanoTime() - start) / nanos + "ms");
             log.info("Loaded JAXB Objects");
         } catch (JAXBException e) {
             log.error("Could not create JAXBContext", e);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> T loadXML(String filename) throws JAXBException {
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        log.info("Loading from " + filename);
-        InputStream resource = FIXRepositoryHelper.class.getClassLoader().getResourceAsStream(filename);
-        return (T) unmarshaller.unmarshal(resource);
     }
 
     private Fields getFields() {

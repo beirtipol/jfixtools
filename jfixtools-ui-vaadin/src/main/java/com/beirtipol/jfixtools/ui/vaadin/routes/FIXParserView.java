@@ -23,6 +23,7 @@ import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import com.beirtipol.jfixtools.ui.util.MessageUtils;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryCombo;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXMessageViewer;
+import com.beirtipol.jfixtools.ui.vaadin.components.NavigationBar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -60,6 +61,7 @@ public class FIXParserView extends VerticalLayout {
     public FIXParserView(FIXRepositoryHelper repositoryHelper,
                          DictionaryService dictionaryService,
                          MessageUtils messageUtils) {
+        add(new NavigationBar());
         setSizeFull();
 
         textArea = new TextArea();

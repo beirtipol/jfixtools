@@ -28,6 +28,7 @@ import com.beirtipol.jfixtools.ui.util.MessageUtils;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXDictionaryCombo;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXMessageViewer;
 import com.beirtipol.jfixtools.ui.vaadin.components.FIXSessionCombo;
+import com.beirtipol.jfixtools.ui.vaadin.components.NavigationBar;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -74,6 +75,7 @@ public class FIXLogsView extends VerticalLayout {
                        FIXLogService fixLogService,
                        FIXRepositoryHelper helper,
                        MessageUtils messageUtils) {
+        add(new NavigationBar());
         this.dictionaryMappingService = dictionaryMappingService;
         this.dictionaryService        = dictionaryService;
         this.fixLogService            = fixLogService;
