@@ -77,7 +77,7 @@
         <quickfixj.version>2.1.1</quickfixj.version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <surefire.version>3.0.0-M3</surefire.version>
-        <vaadin.version>17.0.8</vaadin.version>
+        <vaadin.version>19.0.9</vaadin.version>
     </properties>
 
     <scm>
