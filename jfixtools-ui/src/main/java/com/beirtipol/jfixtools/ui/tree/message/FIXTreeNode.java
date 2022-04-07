@@ -21,6 +21,8 @@ import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import com.beirtipol.jfixtools.ui.tree.ITreeNode;
 import quickfix.StringField;
 
+import java.util.Map;
+
 public abstract class FIXTreeNode implements ITreeNode<FIXTreeNode> {
 
     private   FIXTreeNode         parent;
@@ -32,7 +34,11 @@ public abstract class FIXTreeNode implements ITreeNode<FIXTreeNode> {
     }
 
     protected String getName(int field) {
-        return dictionary.getFieldName(field);
+        String result = dictionary.getFieldName(field);
+        if (result == null) {
+            return "" + field;
+        }
+        return result;
     }
 
     protected String getDescription(StringField field) {
@@ -53,5 +59,7 @@ public abstract class FIXTreeNode implements ITreeNode<FIXTreeNode> {
     public abstract String getValue();
 
     public abstract String getDescription();
+
+    public abstract void addToJSON(Map<String, Object> json);
 
 }

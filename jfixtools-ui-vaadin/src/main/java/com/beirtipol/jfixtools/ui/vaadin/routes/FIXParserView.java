@@ -77,7 +77,7 @@ public class FIXParserView extends VerticalLayout {
             try {
                 DataDictionary dict = getSelectedDictionary();
                 Message message = messageUtils.parse(dict, textArea.getValue());
-                setMessage(message, repositoryHelper);
+                setMessage(message);
             } catch (ConfigError | InvalidMessage e1) {
                 Notification.show(e1.getMessage());
             }
@@ -107,7 +107,7 @@ public class FIXParserView extends VerticalLayout {
         viewPane.add(textArea);
 
 
-        messageViewer = new FIXMessageViewer();
+        messageViewer = new FIXMessageViewer(repositoryHelper);
         messageViewer.setSizeFull();
         viewPane.add(messageViewer);
 
@@ -125,10 +125,10 @@ public class FIXParserView extends VerticalLayout {
         return dictionaryCombo.getValue();
     }
 
-    private void setMessage(Message message, FIXRepositoryHelper repositoryHelper) {
+    private void setMessage(Message message) {
         try {
             NamedDataDictionary dictionary = getSelectedDictionary();
-            messageViewer.setContent(dictionary, message, repositoryHelper);
+            messageViewer.setContent(dictionary, message);
         } catch (ConfigError e) {
             Notification.show(e.getMessage());
         }

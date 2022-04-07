@@ -17,15 +17,13 @@
 
 package com.beirtipol.jfixtools.ui.tree.message;
 
-import com.beirtipol.jfixtools.repository.FIXRepositoryHelper;
 import com.beirtipol.jfixtools.ui.dictionary.NamedDataDictionary;
 import lombok.extern.slf4j.Slf4j;
 import quickfix.FieldNotFound;
 import quickfix.Message;
 import quickfix.field.MsgType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class allows easy traversal of a FIX {@link Message} in a tree-like structure. It separates the header, body
@@ -33,15 +31,13 @@ import java.util.List;
  */
 @Slf4j
 public class FIXMessageTreeNode extends FIXTreeNode {
-    private Message             message;
-    private List<FIXTreeNode>   children;
-    private FIXRepositoryHelper helper;
-    private String              messageType;
+    private Message           message;
+    private List<FIXTreeNode> children;
+    private String            messageType;
 
-    public FIXMessageTreeNode(NamedDataDictionary dictionary, Message message, FIXRepositoryHelper helper) {
+    public FIXMessageTreeNode(NamedDataDictionary dictionary, Message message) {
         super(null, dictionary);
         this.message = message;
-        this.helper  = helper;
         try {
             messageType = message.getHeader().getString(MsgType.FIELD);
         } catch (FieldNotFound e) {
@@ -74,16 +70,16 @@ public class FIXMessageTreeNode extends FIXTreeNode {
     public List<FIXTreeNode> getChildren() {
         if (children == null) {
             children = new ArrayList<>();
-            children.add(new FieldMapTreeNode(this, dictionary, messageType, message.getHeader(), helper, "Header", "", ""));
-            children.add(new FieldMapTreeNode(this, dictionary, messageType, message, helper, "Message", "", ""));
-            children.add(new FieldMapTreeNode(this, dictionary, messageType, message.getTrailer(), helper, "Trailer", "", ""));
+            children.add(new FieldMapTreeNode(this, dictionary, messageType, message.getHeader(), "header", "", ""));
+            children.add(new FieldMapTreeNode(this, dictionary, messageType, message, "message", "", ""));
+            children.add(new FieldMapTreeNode(this, dictionary, messageType, message.getTrailer(), "trailer", "", ""));
         }
         return children;
     }
 
     @Override
     public boolean hasChildren() {
-        return children.size() > 0;
+        return getChildren().size() > 0;
     }
 
     @Override
@@ -91,4 +87,10 @@ public class FIXMessageTreeNode extends FIXTreeNode {
         return null;
     }
 
+    @Override
+    public void addToJSON(Map<String, Object> json) {
+        getChildren().stream().forEach(child -> {
+            child.addToJSON(json);
+        });
+    }
 }

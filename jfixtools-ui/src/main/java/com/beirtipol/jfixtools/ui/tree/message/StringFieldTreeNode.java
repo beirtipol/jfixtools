@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This allows simple display of a field in a FIX {@link quickfix.Message}. It treats all children as plain text but
@@ -42,7 +43,6 @@ import java.util.List;
  */
 @Slf4j
 public class StringFieldTreeNode extends FIXTreeNode {
-    private FIXRepositoryHelper    helper;
     private String                 messageType;
     private int                    tag;
     private String                 value;
@@ -50,9 +50,8 @@ public class StringFieldTreeNode extends FIXTreeNode {
     private String                 fieldName;
     private ArrayList<FIXTreeNode> children;
 
-    public StringFieldTreeNode(FIXTreeNode parent, NamedDataDictionary dictionary, FIXRepositoryHelper helper, String messageType, int tag, String fieldName, String value, String description) {
+    public StringFieldTreeNode(FIXTreeNode parent, NamedDataDictionary dictionary, String messageType, int tag, String fieldName, String value, String description) {
         super(parent, dictionary);
-        this.helper      = helper;
         this.messageType = messageType;
         this.tag         = tag;
         this.fieldName   = fieldName;
@@ -105,12 +104,17 @@ public class StringFieldTreeNode extends FIXTreeNode {
         return getChildren().size() > 0;
     }
 
-    public FieldData getFieldData() {
+    public FieldData getFieldData(FIXRepositoryHelper helper) {
         return FieldData.builder()
                 .tagNum(tag)
                 .messageType(messageType)
                 .dictionary(dictionary)
                 .helper(helper)
                 .build();
+    }
+
+    @Override
+    public void addToJSON(Map<String, Object> json) {
+        json.put(getName(), getValue());
     }
 }

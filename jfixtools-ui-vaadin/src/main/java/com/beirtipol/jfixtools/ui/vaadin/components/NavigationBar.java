@@ -21,15 +21,15 @@ import com.beirtipol.jfixtools.ui.vaadin.routes.FIXHomeView;
 import com.beirtipol.jfixtools.ui.vaadin.routes.FIXLogsView;
 import com.beirtipol.jfixtools.ui.vaadin.routes.FIXParserView;
 import com.beirtipol.jfixtools.ui.vaadin.routes.FIXRepositoryView;
-import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.RouterLink;
 
 
-public class NavigationBar extends MenuBar {
+public class NavigationBar extends HorizontalLayout {
     public NavigationBar() {
-        addItem(new RouterLink("Home", FIXHomeView.class));
-        addItem(new RouterLink("Logs", FIXLogsView.class));
-        addItem(new RouterLink("Parser", FIXParserView.class));
-        addItem(new RouterLink("Repository", FIXRepositoryView.class));
+        add(new RouterLink("Home", FIXHomeView.class));
+        add(new RouterLink("Logs", FIXLogsView.class));
+        add(new RouterLink("Parser", FIXParserView.class));
+        add(new RouterLink("Repository", FIXRepositoryView.class));
     }
 }

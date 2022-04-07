@@ -7,10 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jfixtools-cucumber" />
+        <module name="jfixtools-logstash" />
         <module name="jfixtools-reporting" />
-        <module name="jfixtools-ui" />
+        <module name="jfixtools-cucumber" />
         <module name="jfixtools-repository" />
+        <module name="jfixtools-ui" />
         <module name="jfixtools-ui-vaadin" />
         <module name="jfixtools-logging" />
       </profile>

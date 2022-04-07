@@ -9,3 +9,5 @@
 /jfixtools-ui-vaadin/target/maven-status/maven-compiler-plugin/
 /jfixtools-ui-vaadin/target/
 /jfixtools-web/target/
+/node_modules/
+/jfixtools-ui-vaadin/node_modules/

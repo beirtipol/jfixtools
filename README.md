@@ -21,6 +21,9 @@ This project allows people to input their own Dictionaries and FIX Message sourc
 can host the application internally and not worry about sharing live trading information with
 external websites.
 
+That said, there is a sample application running on https://fix.beirtipol.com if you'd like to poke around. It's just 
+running on a local docker swarm of Raspberry Pi's for a bit of experimentation.
+
 ## Sample Web Application
 
 The sample application is written using Vaadin, currently without any special stylesheets or fanciness.

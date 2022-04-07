@@ -18,6 +18,7 @@
 package com.beirtipol.jfixtools.ui.tree;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ITreeNode<T> {
     List<T> getChildren();
@@ -25,4 +26,7 @@ public interface ITreeNode<T> {
     boolean hasChildren();
 
     ITreeNode<?> getParent();
+
+
+
 }

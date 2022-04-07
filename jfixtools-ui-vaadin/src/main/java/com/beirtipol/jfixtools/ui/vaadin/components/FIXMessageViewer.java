@@ -43,7 +43,7 @@ public class FIXMessageViewer extends VerticalLayout {
     private              Message               message;
     private              NamedDataDictionary   dictionary;
 
-    public FIXMessageViewer() {
+    public FIXMessageViewer(FIXRepositoryHelper helper) {
         setMargin(false);
         tree = new TreeGrid<>();
         tree.addHierarchyColumn(FIXTreeNode::getTag).setHeader("Tag").setResizable(true);
@@ -54,7 +54,7 @@ public class FIXMessageViewer extends VerticalLayout {
             @Override
             public VerticalLayout createComponent(FIXTreeNode item) {
                 if (item instanceof StringFieldTreeNode) {
-                    return new FIXDataViewer(((StringFieldTreeNode) item).getFieldData());
+                    return new FIXDataViewer(((StringFieldTreeNode) item).getFieldData(helper));
                 } else if (item instanceof XMLTreeNode) {
                     VerticalLayout layout = new VerticalLayout();
                     String xmlString = ((XMLTreeNode) item).getXMLString();
@@ -74,10 +74,10 @@ public class FIXMessageViewer extends VerticalLayout {
         tree.setSizeFull();
     }
 
-    public void setContent(NamedDataDictionary dictionary, Message message, FIXRepositoryHelper repositoryHelper) {
+    public void setContent(NamedDataDictionary dictionary, Message message) {
         this.message    = message;
         this.dictionary = dictionary;
-        FIXMessageTreeNode rootNode = new FIXMessageTreeNode(this.dictionary, this.message, repositoryHelper);
+        FIXMessageTreeNode rootNode = new FIXMessageTreeNode(this.dictionary, this.message);
 
         tree.setDataProvider(new AbstractBackEndHierarchicalDataProvider<FIXTreeNode, Object>() {
 

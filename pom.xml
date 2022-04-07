@@ -28,6 +28,7 @@
         <module>jfixtools-ui-vaadin</module>
         <module>jfixtools-repository</module>
         <module>jfixtools-reporting</module>
+        <module>jfixtools-logstash</module>
     </modules>
     <groupId>com.beirtipol</groupId>
     <artifactId>jfixtools</artifactId>
@@ -77,7 +78,7 @@
         <quickfixj.version>2.1.1</quickfixj.version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <surefire.version>3.0.0-M3</surefire.version>
-        <vaadin.version>17.0.8</vaadin.version>
+        <vaadin.version>13.0.12</vaadin.version>
     </properties>
 
     <scm>
@@ -346,6 +347,13 @@
                 <artifactId>kotlin-stdlib</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.10.19</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

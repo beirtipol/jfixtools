@@ -141,13 +141,13 @@ public class FIXLogsView extends VerticalLayout {
             @Override
             public Component createComponent(FIXLogEntry item) {
                 if (typeCombo.getValue() == FIXLogEntryType.MESSAGE) {
-                    FIXMessageViewer viewer = new FIXMessageViewer();
+                    FIXMessageViewer viewer = new FIXMessageViewer(helper);
                     dictionaryMappingService.dictionaryName(fixSessionCombo.getValue())
                             .ifPresent(name -> {
                                 dictionaryService.loadDictionary(name).ifPresent(dd -> {
                                     try {
                                         Message message = messageUtils.parse(dd, item.getText());
-                                        viewer.setContent(dd, message, helper);
+                                        viewer.setContent(dd, message);
                                     } catch (InvalidMessage e) {
                                         log.error("Could not parse fix message, e");
                                     }

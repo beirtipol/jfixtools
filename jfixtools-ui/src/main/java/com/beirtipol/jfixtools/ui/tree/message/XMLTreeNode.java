@@ -34,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class allows easy traversal of an XML Document in a tree-like structure.
@@ -118,5 +119,10 @@ public class XMLTreeNode extends FIXTreeNode {
     @Override
     public boolean hasChildren() {
         return getChildren().size() > 0;
+    }
+
+    @Override
+    public void addToJSON(Map<String, Object> json) {
+        json.put(getName(),getXMLString());
     }
 }
